@@ -21,7 +21,7 @@ public class Manutencao {
 	private Date dataFinal;
 
 	@Column
-	private String localicacao;
+	private String localizacao;
 
 	@Column
 	private String responsavel;
