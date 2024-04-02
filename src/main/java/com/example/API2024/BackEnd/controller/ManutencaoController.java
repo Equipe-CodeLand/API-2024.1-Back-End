@@ -12,7 +12,7 @@ import com.example.API2024.BackEnd.model.Manutencao;
 import com.example.API2024.BackEnd.service.ManutencaoService;
 
 @RestController
-@RequestMapping(value = "manutencao")
+@RequestMapping(value = "/manutencao")
 public class ManutencaoController {
 	
 	@Autowired

@@ -33,6 +33,6 @@ public class Manutencao {
 	private String responsavel;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ativo_id")
-	private Ativo ativo;
+	@JoinColumn(name = "ativos_id")
+	private Ativos ativos;
 }
