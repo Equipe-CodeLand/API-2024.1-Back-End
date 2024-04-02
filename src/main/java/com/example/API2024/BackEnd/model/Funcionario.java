@@ -6,6 +6,8 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Data
 @Entity
 public class Funcionario {
@@ -20,15 +22,15 @@ public class Funcionario {
 	@Column
 	private double cpf;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "turno_id")
 	private Turno turno;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "setor_id")
 	private Setor setor;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ativos_id")
+	@OneToMany(mappedBy="funcionario",  fetch = FetchType.EAGER)
+	@JsonBackReference
 	private List<Ativos> ativos = new ArrayList<>();
 }

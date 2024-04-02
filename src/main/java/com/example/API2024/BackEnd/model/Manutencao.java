@@ -2,7 +2,8 @@ package com.example.API2024.BackEnd.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,8 @@ public class Manutencao {
 	@Column
 	private String responsavel;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ativos_id")
+	@JsonManagedReference
 	private Ativos ativos;
 }
