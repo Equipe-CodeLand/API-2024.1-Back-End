@@ -29,6 +29,6 @@ public class Funcionario {
 	private Setor setor;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ativos_id")
-	private List<Ativos> ativos = new ArrayList<>();
+	@JoinColumn(name = "ativo_id")
+	private List<Ativo> ativos = new ArrayList<>();
 }
