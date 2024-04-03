@@ -2,11 +2,12 @@ package com.example.API2024.BackEnd.controller;
 
 import java.util.List;
 
+import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.API2024.BackEnd.model.Manutencao;
 import com.example.API2024.BackEnd.service.ManutencaoService;
@@ -17,6 +18,9 @@ public class ManutencaoController {
 	
 	@Autowired
 	private ManutencaoService manutencaoService;
+
+	@Autowired
+	private ManutencaoRepository manutencaoRepositorio;
 	
 	@GetMapping
 	public List<Manutencao> findAll(){
@@ -25,6 +29,16 @@ public class ManutencaoController {
 	@GetMapping("/{id}")
 	public Manutencao findById(@PathVariable Long id) {
 		return manutencaoService.findById(id);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletarManutencao(@PathVariable Long id) {
+		if (manutencaoRepositorio.existsById(id)) {
+			manutencaoRepositorio.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }
