@@ -1,12 +1,17 @@
 package com.example.API2024.BackEnd.model;
 
-import java.util.Date;
+
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -14,18 +19,23 @@ import lombok.Data;
 public class Manutencao {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private String nomeAtivo;
+	@Column
+	private Date dataInicio;
 
-    @Column(nullable = false)
-    private String nomeFuncionario;
+	@Column
+	private Date dataFinal;
 
-    @Column(nullable = false)
-    private Date dataInicio;
+	@Column
+	private String localizacao;
 
-    @Column(nullable = false)
-    private Date dataTermino;
+	@Column
+	private String responsavel;
+
+	@ManyToOne
+	@JoinColumn(name = "ativos_id")
+	@JsonManagedReference
+	private Ativos ativos;
 }

@@ -5,3 +5,4 @@ import com.example.API2024.BackEnd.model.Manutencao;
 
 public interface ManutencaoRepository extends JpaRepository<Manutencao, Long> {
 }
+
