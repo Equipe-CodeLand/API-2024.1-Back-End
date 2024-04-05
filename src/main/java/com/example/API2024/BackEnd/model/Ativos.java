@@ -1,10 +1,10 @@
 package com.example.API2024.BackEnd.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,9 +15,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Ativos {
 
 	@Id
@@ -38,6 +40,12 @@ public class Ativos {
 
 	@Column
 	private String marca;
+	
+	@Column
+	private Date dataAquisicao;
+	
+	@Column
+	private Date dataExpiracao;
 
 	@OneToMany(mappedBy = "ativos")
 	@JsonBackReference
@@ -51,8 +59,6 @@ public class Ativos {
 	@JoinColumn(name="setor_id")
 	private Setor setor;
 
-	@ManyToOne()
-	@JoinColumn(name="func_id")
-	@JsonManagedReference
-	private Funcionario funcionario;
+	@Column
+	private String funcionario;
 }
