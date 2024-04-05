@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.API2024.BackEnd.model.Manutencao;
+import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 import com.example.API2024.BackEnd.service.ManutencaoService;
 
 import java.util.List;
@@ -33,9 +34,21 @@ public class ManutencaoController {
 		return manutencaoService.findById(id);
 	}
 
-    @PostMapping("/manutencaoCadastro")
+    @PostMapping
     public Manutencao createManutencao(@RequestBody Manutencao manutencao) {
         return manutencaoService.cadastrarManutencao(manutencao);
+
+	public Manutencao cadastrarManutencao(Manutencao manutencao) {
+    System.out.println("Manutencao antes de salvar: " + manutencao);
+    Manutencao savedManutencao;
+	try {
+		savedManutencao = ManutencaoRepository.save(manutencao);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    System.out.println("Manutencao depois de salvar: " + savedManutencao);
+    return savedManutencao;
 
 }}
 
