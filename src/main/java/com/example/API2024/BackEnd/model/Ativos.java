@@ -31,13 +31,16 @@ public class Ativos {
 	private String descricao;
 
 	@Column
-	private double precoAquisicao;
+	private double preco_aquisicao;
 
 	@Column
 	private String modelo;
 
 	@Column
 	private String marca;
+
+	@Column
+	private String nome_funcionario;
 
 	@OneToMany(mappedBy = "ativos")
 	@JsonBackReference
@@ -51,8 +54,10 @@ public class Ativos {
 	@JoinColumn(name="setor_id")
 	private Setor setor;
 
-	@ManyToOne()
-	@JoinColumn(name="func_id")
-	@JsonManagedReference
-	private Funcionario funcionario;
+	{/*
+		@ManyToOne()
+		@JoinColumn(name = "func_id")
+		@JsonManagedReference
+		private Funcionario funcionario;
+	*/}
 }

@@ -12,5 +12,5 @@ public class Setor {
 	private Long id;
 
 	@Column
-	private String nomeSetor;
+	private String nome_setor;
 }

@@ -12,7 +12,7 @@ public class Administrador {
 	private Long id;
 
 	@Column
-	private String nomeAdm;
+	private String nome_adm;
 
 	@Column
 	private String cpf;

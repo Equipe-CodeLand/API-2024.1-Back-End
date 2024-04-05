@@ -22,10 +22,10 @@ public class Manutencao {
 	private Long id;
 
 	@Column
-	private Date dataInicio;
+	private Date data_inicio;
 
 	@Column
-	private Date dataFinal;
+	private Date data_final;
 
 	@Column
 	private String localizacao;
