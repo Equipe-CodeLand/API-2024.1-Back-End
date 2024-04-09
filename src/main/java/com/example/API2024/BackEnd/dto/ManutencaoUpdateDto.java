@@ -18,5 +18,4 @@ public class ManutencaoUpdateDto {
 
 	private Long ativos_id;
 
-
 }

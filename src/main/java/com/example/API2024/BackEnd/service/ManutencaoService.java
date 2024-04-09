@@ -24,10 +24,15 @@ public class ManutencaoService {
 	private AtivosRepository repositorio;
 
 	public Manutencao updateManutencao(ManutencaoUpdateDto manutencaoDto, Long id){
-		Manutencao manutencao = manutencaoRepository.findById(id).get();
-		Ativos ativos = repositorio.findById(manutencaoDto.getAtivos_id()).get();
+		try {
+			Manutencao manutencao = manutencaoRepository.findById(id).orElseThrow(() -> new Exception("Manutenção não encontrada"));
+			Ativos ativos = repositorio.findById(manutencaoDto.getAtivos_id()).orElseThrow(() -> new Exception("Ativo não encontrado"));
 
-		return manutencaoRepository.save(manutencao.update(manutencaoDto, ativos));
+			return manutencaoRepository.save(manutencao.update(manutencaoDto, ativos));
+		} catch (Exception e) {
+			System.out.println("Erro ao atualizar a manutenção: " + e.getMessage());
+			return null;
+		}
 	}
 
     public List<Manutencao> findAll() {
