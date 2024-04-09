@@ -1,8 +1,8 @@
 package com.example.API2024.BackEnd.model;
 
-import com.example.API2024.BackEnd.model.dto.ManutencaoUpdateDto;
-import com.example.API2024.BackEnd.repository.AtivosRepository;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Date;
+
+import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -13,12 +13,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Manutencao {
 
 	@Id
@@ -26,10 +25,10 @@ public class Manutencao {
 	private Long id;
 
 	@Column
-	private Date data_inicio;
+	private Date dataInicio;
 
 	@Column
-	private Date data_final;
+	private Date dataFinal;
 
 	@Column
 	private String localizacao;
@@ -45,8 +44,8 @@ public class Manutencao {
 	public Manutencao update(ManutencaoUpdateDto manutencao, Ativos ativos) {
 		this.setLocalizacao(manutencao.getLocalizacao());
 		this.setResponsavel(manutencao.getResponsavel());
-		this.setData_inicio(manutencao.getData_inicio());
-		this.setData_final(manutencao.getData_final());
+		this.setDataInicio(manutencao.getData_inicio());
+		this.setDataFinal(manutencao.getData_final());
 	    this.setAtivos(ativos);
 		return this;
 	}
