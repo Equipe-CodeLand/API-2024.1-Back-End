@@ -2,11 +2,16 @@ package com.example.API2024.BackEnd.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.API2024.BackEnd.dto.ManutencaoDto;
+import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Manutencao;
+import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 import com.example.API2024.BackEnd.service.ManutencaoService;
 
@@ -25,6 +30,9 @@ public class ManutencaoController {
 	@Autowired
 	private ManutencaoService manutencaoService;
 	
+	@Autowired
+	private ManutencaoRepository manutencaoRepository;
+
 	@GetMapping
 	public List<Manutencao> findAll(){
 		return manutencaoService.findAll();
@@ -34,22 +42,11 @@ public class ManutencaoController {
 		return manutencaoService.findById(id);
 	}
 
-    @PostMapping
-    public Manutencao createManutencao(@RequestBody Manutencao manutencao) {
-        return manutencaoService.cadastrarManutencao(manutencao);
-
-	public Manutencao cadastrarManutencao(Manutencao manutencao) {
-    System.out.println("Manutencao antes de salvar: " + manutencao);
-    Manutencao savedManutencao;
-	try {
-		savedManutencao = ManutencaoRepository.save(manutencao);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	@PostMapping("/cadastrar/{id}")
+	public Manutencao cadastrarManutencao(@RequestBody ManutencaoDto manutencao, @PathVariable Long id) { 
+		return manutencaoService.cadastrarManutencao(manutencao.toEntity(), id);
 	}
-    System.out.println("Manutencao depois de salvar: " + savedManutencao);
-    return savedManutencao;
+}
 
-}}
 
 

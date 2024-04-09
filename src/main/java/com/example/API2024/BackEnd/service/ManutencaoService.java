@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.example.API2024.BackEnd.model.Manutencao;
+import com.example.API2024.BackEnd.dto.ManutencaoDto;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
@@ -26,12 +27,10 @@ public class ManutencaoService {
         return manutencaoRepository.findById(id).get();
     }
 
-    public Manutencao cadastrarManutencao(Manutencao manutencao) {
-        if (manutencao.getAtivos() != null && manutencao.getAtivos().getId() != null) {
-            Ativos ativos = ativosRepository.findById(manutencao.getAtivos().getId())
-                .orElseThrow(() -> new RuntimeException("Ativo não encontrado"));
-            manutencao.setAtivos(ativos);
-        }
+    public Manutencao cadastrarManutencao(Manutencao manutencao, Long id) {
+           Ativos ativos = ativosRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("Ativo não encontrado"));
+           manutencao.setAtivos(ativos);
         return manutencaoRepository.save(manutencao);
     }
 }
