@@ -33,7 +33,7 @@ public class ManutencaoService {
 		Manutencao manutencao = manutencaoRepository.findById(id).get();
 		Ativos ativos = repositorio.findById(manutencaoDto.getAtivos_id()).get();
 
-		return manutencao.update(manutencaoDto, ativos);
+		return manutencaoRepository.save(manutencao.update(manutencaoDto, ativos));
 	}
 
 }

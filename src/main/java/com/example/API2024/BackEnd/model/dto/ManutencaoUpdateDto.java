@@ -10,9 +10,6 @@ import java.util.Date;
 
 @Data
 public class ManutencaoUpdateDto {
-	@JsonIgnore
-	@Autowired
-	private AtivosRepository repositorio;
 
 	private String localizacao;
 
@@ -24,13 +21,5 @@ public class ManutencaoUpdateDto {
 
 	private Long ativos_id;
 
-	public Manutencao toEntity() {
-		Manutencao manutencao = new Manutencao();
-		manutencao.setLocalizacao(localizacao);
-		manutencao.setResponsavel(responsavel);
-		manutencao.setData_inicio(data_inicio);
-		manutencao.setData_final(data_final);
 
-		return manutencao;
-	}
 }
