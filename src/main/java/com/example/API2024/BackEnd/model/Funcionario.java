@@ -17,14 +17,16 @@ public class Funcionario {
 	private Long id;
 
 	@Column
-	private String nomeFuncionario;
+	private String nome_funcionario;
 
 	@Column
 	private double cpf;
 
-	@ManyToOne
-	@JoinColumn(name = "turno_id")
-	private Turno turno;
+	{/*
+		@ManyToOne
+		@JoinColumn(name = "turno_id")
+		private Turno turno;
+	*/}
 
 	@ManyToOne
 	@JoinColumn(name = "setor_id")

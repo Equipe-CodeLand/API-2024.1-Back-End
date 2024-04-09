@@ -31,7 +31,7 @@ public class Ativos {
 	private String descricao;
 
 	@Column
-	private double precoAquisicao;
+	private double preco_aquisicao;
 
 	@Column
 	private String modelo;

@@ -12,5 +12,5 @@ public class Status {
 	private Long id;
 
 	@Column
-	private String nomeStatus;
+	private String nome_status;
 }

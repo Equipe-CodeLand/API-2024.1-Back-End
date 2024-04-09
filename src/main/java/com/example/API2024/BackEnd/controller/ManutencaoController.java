@@ -2,6 +2,7 @@ package com.example.API2024.BackEnd.controller;
 
 import java.util.List;
 
+import com.example.API2024.BackEnd.model.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,16 @@ public class ManutencaoController {
 	public List<Manutencao> findAll(){
 		return manutencaoService.findAll();
 	}
+
 	@GetMapping("/{id}")
 	public Manutencao findById(@PathVariable Long id) {
 		return manutencaoService.findById(id);
+	}
+
+	@PutMapping("/{id}")
+	public Manutencao atualizarManutencao(@RequestBody ManutencaoUpdateDto manutencaodto, @PathVariable Long id) {
+		Manutencao manutencao = manutencaoRepositorio.findById(id).get();
+		return manutencaoService.updateManutencao(manutencaodto, id);
 	}
 
 	@DeleteMapping("/{id}")
