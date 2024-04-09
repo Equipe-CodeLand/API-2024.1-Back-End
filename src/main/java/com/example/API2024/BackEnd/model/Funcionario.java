@@ -22,9 +22,11 @@ public class Funcionario {
 	@Column
 	private double cpf;
 
-	@ManyToOne
-	@JoinColumn(name = "turno_id")
-	private Turno turno;
+	{/*
+		@ManyToOne
+		@JoinColumn(name = "turno_id")
+		private Turno turno;
+	*/}
 
 	@ManyToOne
 	@JoinColumn(name = "setor_id")
