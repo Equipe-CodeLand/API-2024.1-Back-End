@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.API2024.BackEnd.model.dto.AtivosDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -61,4 +62,18 @@ public class Ativos {
 
 	@Column
 	private String funcionario;
+	
+	public Ativos update(AtivosDto ativos){
+		this.setNome(ativos.getNome());
+		this.setDescricao(ativos.getDescricao());
+		this.setPrecoAquisicao(ativos.getPrecoAquisicao());
+		this.setModelo(ativos.getModelo());
+		this.setMarca(ativos.getMarca());
+		this.setStatus(ativos.getStatus());
+		this.setDataAquisicao(ativos.getDataAquisicao());
+		this.setDataExpiracao(ativos.getDataExpiracao());
+		this.setFuncionario(ativos.getFuncionario());
+		
+		return this;
+	}
 }
