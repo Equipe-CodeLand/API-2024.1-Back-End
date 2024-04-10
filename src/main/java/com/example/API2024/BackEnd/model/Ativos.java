@@ -69,7 +69,7 @@ public class Ativos {
 	public Ativos update(AtivosDto ativos){
 		this.setNome(ativos.getNome());
 		this.setDescricao(ativos.getDescricao());
-		this.setPrecoAquisicao(ativos.getPrecoAquisicao());
+		this.setPreco_aquisicao(preco_aquisicao);
 		this.setModelo(ativos.getModelo());
 		this.setMarca(ativos.getMarca());
 		this.setStatus(ativos.getStatus());

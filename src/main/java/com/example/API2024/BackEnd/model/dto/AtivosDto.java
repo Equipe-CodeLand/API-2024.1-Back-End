@@ -32,7 +32,7 @@ public class AtivosDto {
 		Ativos ativos = new Ativos();
 		ativos.setNome(nome);
 		ativos.setDescricao(descricao);
-		ativos.setPrecoAquisicao(precoAquisicao);
+		ativos.setPreco_aquisicao(precoAquisicao);
 		ativos.setModelo(modelo);
 		ativos.setMarca(marca);
 		ativos.setStatus(status);
