@@ -1,6 +1,7 @@
 package com.example.API2024.BackEnd.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Data
@@ -25,10 +27,12 @@ public class Manutencao {
 	private Long id;
 
 	@Column
-	private Date dataInicio;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private LocalDate data_inicio;
 
 	@Column
-	private Date dataFinal;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private LocalDate data_final;
 
 	@Column
 	private String localizacao;
@@ -44,8 +48,8 @@ public class Manutencao {
 	public Manutencao update(ManutencaoUpdateDto manutencao, Ativos ativos) {
 		this.setLocalizacao(manutencao.getLocalizacao());
 		this.setResponsavel(manutencao.getResponsavel());
-		this.setDataInicio(manutencao.getData_inicio());
-		this.setDataFinal(manutencao.getData_final());
+		this.setData_inicio(LocalDate.parse(manutencao.getData_inicio()));
+		this.setData_final(LocalDate.parse(manutencao.getData_final()));
 	    this.setAtivos(ativos);
 		return this;
 	}

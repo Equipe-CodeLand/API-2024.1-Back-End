@@ -1,6 +1,7 @@
 package com.example.API2024.BackEnd.model.dto;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Status;
@@ -22,9 +23,9 @@ public class AtivosDto {
 	
 	private Status status;
 	
-	private Date dataAquisicao;
+	private String dataAquisicao;
 	
-	private Date dataExpiracao;
+	private String dataExpiracao;
 	
 	private String funcionario;
 	
@@ -36,8 +37,8 @@ public class AtivosDto {
 		ativos.setModelo(modelo);
 		ativos.setMarca(marca);
 		ativos.setStatus(status);
-		ativos.setDataAquisicao(dataAquisicao);
-		ativos.setDataExpiracao(dataExpiracao);
+		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
+		ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
 		ativos.setFuncionario(funcionario);
 		
 		return ativos;

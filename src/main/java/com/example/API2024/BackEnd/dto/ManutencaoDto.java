@@ -2,17 +2,20 @@ package com.example.API2024.BackEnd.dto;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import com.example.API2024.BackEnd.model.Manutencao;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class ManutencaoDto {
 
-    private Date dataInicio;
+    private String data_inicio;
 
-    private Date dataFinal;
+    private String data_final;
 
     private String localizacao;
 
@@ -22,8 +25,8 @@ public class ManutencaoDto {
 
     public Manutencao toEntity() {
         Manutencao manutencao = new Manutencao();
-        manutencao.setDataInicio(dataInicio);
-        manutencao.setDataFinal(dataFinal);
+        manutencao.setData_inicio(LocalDate.parse(data_inicio));
+        manutencao.setData_final(LocalDate.parse(data_final));
         manutencao.setLocalizacao(localizacao);
         manutencao.setResponsavel(responsavel);
 

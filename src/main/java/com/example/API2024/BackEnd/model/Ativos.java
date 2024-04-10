@@ -1,6 +1,7 @@
 package com.example.API2024.BackEnd.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +44,10 @@ public class Ativos {
 	private String marca;
 	
 	@Column
-	private Date dataAquisicao;
+	private LocalDate dataAquisicao;
 	
 	@Column
-	private Date dataExpiracao;
+	private LocalDate dataExpiracao;
 
 	@Column
 	private String nome_funcionario;
@@ -73,8 +74,8 @@ public class Ativos {
 		this.setModelo(ativos.getModelo());
 		this.setMarca(ativos.getMarca());
 		this.setStatus(ativos.getStatus());
-		this.setDataAquisicao(ativos.getDataAquisicao());
-		this.setDataExpiracao(ativos.getDataExpiracao());
+		this.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
+		this.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
 		this.setFuncionario(ativos.getFuncionario());
 		
 		return this;
