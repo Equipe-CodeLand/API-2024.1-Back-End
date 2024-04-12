@@ -5,9 +5,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.example.API2024.BackEnd.model.dto.AtivosDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,15 +47,17 @@ public class Ativos {
 	private String marca;
 	
 	@Column
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dataAquisicao;
-	
-	@Column
-	private LocalDate dataExpiracao;
 
+	@Column
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	private LocalDate dataExpiracao;
+	
 	@Column
 	private String nome_funcionario;
 
-	@OneToMany(mappedBy = "ativos")
+	@OneToMany(mappedBy = "ativos", cascade = CascadeType.REMOVE)
 	@JsonBackReference
 	private List<Manutencao> manutencao = new ArrayList<>();
 
@@ -70,7 +75,7 @@ public class Ativos {
 	public Ativos update(AtivosDto ativos){
 		this.setNome(ativos.getNome());
 		this.setDescricao(ativos.getDescricao());
-		this.setPreco_aquisicao(preco_aquisicao);
+		this.setPreco_aquisicao(ativos.getPreco_aquisicao());
 		this.setModelo(ativos.getModelo());
 		this.setMarca(ativos.getMarca());
 		this.setStatus(ativos.getStatus());
