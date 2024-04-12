@@ -1,8 +1,8 @@
 package com.example.API2024.BackEnd.dto;
 
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.example.API2024.BackEnd.model.Manutencao;
 
@@ -24,9 +24,10 @@ public class ManutencaoDto {
     private Long ativos_id;
 
     public Manutencao toEntity() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         Manutencao manutencao = new Manutencao();
-        manutencao.setData_inicio(LocalDate.parse(data_inicio));
-        manutencao.setData_final(LocalDate.parse(data_final));
+        manutencao.setData_inicio(LocalDate.parse(data_inicio, formatter));
+        manutencao.setData_final(LocalDate.parse(data_final, formatter));
         manutencao.setLocalizacao(localizacao);
         manutencao.setResponsavel(responsavel);
 
