@@ -3,14 +3,13 @@ package com.example.API2024.BackEnd.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
-public class Setor {
-
+@Entity
+public class Cargo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private Long id;
 
 	@Column
-	private String nome_setor;
+	private String nome;
 }
