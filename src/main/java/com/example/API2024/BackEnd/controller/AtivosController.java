@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.API2024.BackEnd.model.Ativos;
-import com.example.API2024.BackEnd.model.dto.AtivosDto;
+import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")

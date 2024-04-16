@@ -1,6 +1,5 @@
 package com.example.API2024.BackEnd.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.API2024.BackEnd.model.dto.AtivosDto;
+import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;

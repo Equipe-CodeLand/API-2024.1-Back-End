@@ -1,6 +1,5 @@
 package com.example.API2024.BackEnd.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
