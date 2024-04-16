@@ -1,6 +1,5 @@
 package com.example.API2024.BackEnd.model;
 
-import com.example.API2024.BackEnd.Enum.CargoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,10 +13,11 @@ public class Usuario {
 	@Column
 	private String nome;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "credencial_id")
 	private Credencial credencial;
 
-	@Enumerated(EnumType.ORDINAL)
-    private CargoEnum cargo;
+	@ManyToOne
+	@JoinColumn(name = "cargo_id")
+	private Cargo cargo;
 }
