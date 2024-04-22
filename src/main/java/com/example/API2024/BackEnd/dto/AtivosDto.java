@@ -40,7 +40,12 @@ public class AtivosDto {
 		ativos.setStatus(status);
 		ativos.setUsuario(usuario);
 		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
-		ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
+
+	    if (dataExpiracao != null && !dataExpiracao.isEmpty()) {
+	        ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
+	    } else {
+	        ativos.setDataExpiracao(null); // Define como null se estiver vazio
+	    }
 		
 		return ativos;
 	}
