@@ -3,6 +3,9 @@ package com.example.API2024.BackEnd.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 public class Usuario {
@@ -20,4 +23,5 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "cargo_id")
 	private Cargo cargo;
+
 }

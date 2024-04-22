@@ -2,10 +2,12 @@ package com.example.API2024.BackEnd.dto;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Status;
 
+import com.example.API2024.BackEnd.model.Usuario;
 import lombok.Data;
 
 @Data
@@ -26,6 +28,8 @@ public class AtivosDto {
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
+
+	private Usuario usuario;
 	
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
@@ -35,8 +39,13 @@ public class AtivosDto {
 		ativos.setModelo(modelo);
 		ativos.setMarca(marca);
 		ativos.setStatus(status);
+		ativos.setUsuario(usuario);
 		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
-		ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
+		if (dataExpiracao != null && !dataExpiracao.isEmpty()) {
+			ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
+		} else {
+			ativos.setDataExpiracao(null); // Define como null se estiver vazio
+		}
 		
 		return ativos;
 	}

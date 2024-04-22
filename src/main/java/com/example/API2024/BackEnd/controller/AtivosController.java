@@ -2,6 +2,9 @@ package com.example.API2024.BackEnd.controller;
 
 import java.util.List;
 
+import com.example.API2024.BackEnd.model.Historico;
+import com.example.API2024.BackEnd.model.Usuario;
+import com.example.API2024.BackEnd.repository.HistoricoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,18 +27,37 @@ public class AtivosController {
     @Autowired
     public AtivosRepository repositorio;
 
+	@Autowired
+	private HistoricoRepository historicoRepository;
+
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
         return repositorio.findAll();
     }
-    
+
     @PostMapping("/cadastrar/ativos")
-    public void cadastrarAtivos(@RequestBody AtivosDto ativos) {
+    public void cadastrarAtivos(@RequestBody AtivosDto ativosDto) {
         System.out.println("Recebendo dados do cliente:");
-        System.out.println(ativos.toString());
-        repositorio.save(ativos.toEntity());
+        System.out.println(ativosDto.toString());
+
+        // Convertendo DTO para entidade Ativos
+        Ativos ativo = ativosDto.toEntity();
+
+        // Salvando o ativo e obtendo o ativo salvo
+        Ativos savedAtivo = repositorio.save(ativo);
+
+        // Verificando o status do ativo
+        if ("ocupado".equalsIgnoreCase(savedAtivo.getStatus().getNome_status())) {
+            // Salvando no histórico
+            Historico historico = new Historico();
+            historico.setAtivo(savedAtivo);
+            historico.setData_cadastro(savedAtivo.getDataAquisicao());
+            historico.setUsuario(savedAtivo.getUsuario());
+
+            historicoRepository.save(historico);
+        }
     }
-    
+
     @PutMapping("/atualizar/ativos/{id}")
     public ResponseEntity<Ativos> atualizarAtivos(@RequestBody AtivosDto ativosDto, @PathVariable Long id) {
         try {
@@ -55,5 +77,10 @@ public class AtivosController {
     @DeleteMapping("/delete/ativos/{id}")
     public void deleteAtivos(@PathVariable Long id) {
         repositorio.deleteById(id);
+    }
+
+    @GetMapping("/listar/historico/{id}")
+    public List<Historico> listaHistorico(@PathVariable Long id) {
+        return historicoRepository.findByAtivoId(id);
     }
 }
