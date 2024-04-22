@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Status;
+import com.example.API2024.BackEnd.model.Usuario;
 
 import lombok.Data;
 
@@ -23,6 +24,8 @@ public class AtivosDto {
 	
 	private Status status;
 	
+	private Usuario usuario;
+	
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
@@ -35,6 +38,7 @@ public class AtivosDto {
 		ativos.setModelo(modelo);
 		ativos.setMarca(marca);
 		ativos.setStatus(status);
+		ativos.setUsuario(usuario);
 		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
 		ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
 		
