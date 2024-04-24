@@ -62,10 +62,10 @@ public class SegurancaConfig{
 	}
 
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource fonte = new UrlBasedCorsConfigurationSource();
-        fonte.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return fonte;
-    }
+   
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        UrlBasedCorsConfigurationSource fonte = new UrlBasedCorsConfigurationSource();
+//        fonte.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+//        return fonte;
+//    }
 }
