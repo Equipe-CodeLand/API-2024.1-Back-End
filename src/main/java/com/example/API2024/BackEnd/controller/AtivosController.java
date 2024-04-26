@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.API2024.BackEnd.model.Historico;
 import com.example.API2024.BackEnd.model.Usuario;
 import com.example.API2024.BackEnd.repository.HistoricoRepository;
+import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.service.HistoricoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,9 @@ public class AtivosController {
 
     @Autowired
     private HistoricoService historicoService;
+    
+    @Autowired
+    public AtivosService ativosService;
 
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
@@ -58,10 +62,10 @@ public class AtivosController {
         try {
         	Ativos ativo = repositorio.findById(id).orElse(null);
             if (ativo != null) {
-                Ativos ativoAtualizado = ativo.update(ativosDto);
+                Ativos ativoAtualizado = ativosService.update(id,ativosDto);
                 Ativos ativoSalvo =repositorio.save(ativoAtualizado);
 
-                if(ativoAtualizado.getStatus().getNome_status().equals("Ocupado") && ativo.getUsuario().equals(ativoAtualizado.getUsuario())) {
+                if(ativoAtualizado.getStatus().getNome_status().equals("Ocupado") && ativo.getUsuario() == ativoAtualizado.getUsuario()) {
                     historicoService.addHistorico(ativoAtualizado);
                 }
                 return ResponseEntity.ok(ativoSalvo);
