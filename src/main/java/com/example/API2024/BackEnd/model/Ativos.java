@@ -60,6 +60,9 @@ public class Ativos {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
+
+	@OneToMany(mappedBy = "ativo")
+	private List<Historico> historicos = new ArrayList<>();
 	
 	public Ativos update(AtivosDto ativos){
 		this.setNome(ativos.getNome());
@@ -70,6 +73,7 @@ public class Ativos {
 		this.setStatus(ativos.getStatus());
 		this.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
 		this.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
+		this.setUsuario(ativos.getUsuario());
 		
 		return this;
 	}

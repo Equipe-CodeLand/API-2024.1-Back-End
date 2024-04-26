@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.API2024.BackEnd.model.Historico;
 import com.example.API2024.BackEnd.model.Usuario;
 import com.example.API2024.BackEnd.repository.HistoricoRepository;
+import com.example.API2024.BackEnd.service.HistoricoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +31,9 @@ public class AtivosController {
 	@Autowired
 	private HistoricoRepository historicoRepository;
 
+    @Autowired
+    private HistoricoService historicoService;
+
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
         return repositorio.findAll();
@@ -40,21 +44,12 @@ public class AtivosController {
         System.out.println("Recebendo dados do cliente:");
         System.out.println(ativosDto.toString());
 
-        // Convertendo DTO para entidade Ativos
         Ativos ativo = ativosDto.toEntity();
 
-        // Salvando o ativo e obtendo o ativo salvo
         Ativos savedAtivo = repositorio.save(ativo);
 
-        // Verificando o status do ativo
         if ("ocupado".equalsIgnoreCase(savedAtivo.getStatus().getNome_status())) {
-            // Salvando no histórico
-            Historico historico = new Historico();
-            historico.setAtivo(savedAtivo);
-            historico.setData_cadastro(savedAtivo.getDataAquisicao());
-            historico.setUsuario(savedAtivo.getUsuario());
-
-            historicoRepository.save(historico);
+            historicoService.addHistorico(savedAtivo);
         }
     }
 
@@ -64,7 +59,12 @@ public class AtivosController {
         	Ativos ativo = repositorio.findById(id).orElse(null);
             if (ativo != null) {
                 Ativos ativoAtualizado = ativo.update(ativosDto);
-                return ResponseEntity.ok(repositorio.save(ativoAtualizado));
+                Ativos ativoSalvo =repositorio.save(ativoAtualizado);
+
+                if(ativoAtualizado.getStatus().getNome_status().equals("Ocupado") && ativo.getUsuario().equals(ativoAtualizado.getUsuario())) {
+                    historicoService.addHistorico(ativoAtualizado);
+                }
+                return ResponseEntity.ok(ativoSalvo);
             } else {
                 return ResponseEntity.notFound().build();
             }
@@ -77,10 +77,5 @@ public class AtivosController {
     @DeleteMapping("/delete/ativos/{id}")
     public void deleteAtivos(@PathVariable Long id) {
         repositorio.deleteById(id);
-    }
-
-    @GetMapping("/listar/historico/{id}")
-    public List<Historico> listaHistorico(@PathVariable Long id) {
-        return historicoRepository.findByAtivoId(id);
     }
 }
