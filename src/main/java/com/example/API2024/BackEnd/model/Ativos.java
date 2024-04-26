@@ -61,7 +61,7 @@ public class Ativos {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     
-	public Ativos update(AtivosDto ativos){
+/*	public Ativos update(AtivosDto ativos){
 		this.setNome(ativos.getNome());
 		this.setDescricao(ativos.getDescricao());
 		this.setPreco_aquisicao(ativos.getPreco_aquisicao());
@@ -73,6 +73,6 @@ public class Ativos {
 		this.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
 		
 		return this;
-	}
+	}*/
 
 }

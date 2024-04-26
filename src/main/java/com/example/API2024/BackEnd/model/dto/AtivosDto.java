@@ -1,11 +1,10 @@
-package com.example.API2024.BackEnd.dto;
+package com.example.API2024.BackEnd.model.dto;
 
 import java.sql.Date;
 import java.time.LocalDate;
 
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Status;
-import com.example.API2024.BackEnd.model.Usuario;
 
 import lombok.Data;
 
@@ -24,11 +23,11 @@ public class AtivosDto {
 	
 	private Status status;
 	
-	private Usuario usuario;
-	
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
+	
+	private String funcionario;
 	
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
@@ -38,14 +37,9 @@ public class AtivosDto {
 		ativos.setModelo(modelo);
 		ativos.setMarca(marca);
 		ativos.setStatus(status);
-		ativos.setUsuario(usuario);
 		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
-
-	    if (dataExpiracao != null && !dataExpiracao.isEmpty()) {
-	        ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
-	    } else {
-	        ativos.setDataExpiracao(null); // Define como null se estiver vazio
-	    }
+		ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
+		ativos.setFuncionario(funcionario);
 		
 		return ativos;
 	}
