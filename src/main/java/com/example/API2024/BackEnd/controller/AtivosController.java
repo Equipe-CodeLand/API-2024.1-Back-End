@@ -40,6 +40,7 @@ public class AtivosController {
 
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
+    	// if (ativosService != null) { ativosService.atualizarAtivoStatus(); }
         return repositorio.findAll();
     }
 

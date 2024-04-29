@@ -9,10 +9,17 @@ import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.StoredProcedureQuery;
+
 @Service
 public class AtivosService {
+	
 	@Autowired
     private AtivosRepository ativosRepository;
+
+	@Autowired
+	private EntityManager entityManager;
 
 	public Ativos update(Long id, AtivosDto ativos) throws Exception{
     	Ativos ativo = ativosRepository.findById(id).orElse(null);
@@ -28,4 +35,10 @@ public class AtivosService {
 
 		return ativo;
 	}
+	
+	public void atualizarAtivoStatus() {
+		StoredProcedureQuery procedimento = entityManager.createStoredProcedureQuery("atualizarStatusAtivo");
+		procedimento.execute();
+	}
+	
 }
