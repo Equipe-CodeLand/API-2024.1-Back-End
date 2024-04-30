@@ -1,19 +1,24 @@
 package com.example.API2024.BackEnd.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.API2024.BackEnd.dto.AtivosDto;
+import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.model.Ativos;
+import com.example.API2024.BackEnd.model.Manutencao;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
+import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 
 @Service
 public class AtivosService {
-	@Autowired
-    private AtivosRepository ativosRepository;
 
+    @Autowired
+    private AtivosRepository ativosRepository;
+	
 	public Ativos update(Long id, AtivosDto ativos) throws Exception{
     	Ativos ativo = ativosRepository.findById(id).orElse(null);
 		ativo.setNome(ativos.getNome());
