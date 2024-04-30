@@ -19,10 +19,15 @@ public class CredencialService {
 	CredencialRepository credencialRepository;
 	
 	public Credencial criarCredencial(String cpf, String senha) throws Exception {
-		Credencial credencial = new Credencial();
-		credencial.setCpf(cpf);
-		credencial.setSenha(passwordEncoder.encode(senha));
-		credencialRepository.save(credencial);
-		return credencial;
-		}
+        if (credencialRepository.existsByCpf(cpf)) {
+            throw new Exception("CPF em uso");
+        }
+        Credencial credencial = new Credencial();
+        credencial.setCpf(cpf);
+        credencial.setSenha(passwordEncoder.encode(senha));
+        
+        credencialRepository.save(credencial);
+        
+        return credencial;
+    }
 }
