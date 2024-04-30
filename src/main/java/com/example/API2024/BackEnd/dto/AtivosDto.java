@@ -33,8 +33,6 @@ public class AtivosDto {
 	
 	private String dataExpiracao;
 
-	private Usuario usuario;
-
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
 		ativos.setNome(nome);

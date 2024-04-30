@@ -81,9 +81,9 @@ public class AtivosController {
 			return null;
         }
     }
-    
+
     @DeleteMapping("/delete/ativos/{id}")
     public void deleteAtivos(@PathVariable Long id) {
-        repositorio.deleteById(id);
+        ativosService.delete(id);
     }
 }
