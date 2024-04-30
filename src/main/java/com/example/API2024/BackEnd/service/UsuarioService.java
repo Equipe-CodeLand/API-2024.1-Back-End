@@ -16,5 +16,4 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuário não encontrado"));
         return usuario;
 	}
-	
 }

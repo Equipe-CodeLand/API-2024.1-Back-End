@@ -30,8 +30,7 @@ public class AtivosService {
 		ativo.setUsuario(ativos.getUsuario());
 		ativo.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
 		ativo.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
-		
+
 		return ativo;
 	}
-	
 }
