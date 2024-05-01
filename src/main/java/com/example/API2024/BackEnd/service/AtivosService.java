@@ -37,8 +37,9 @@ public class AtivosService {
 	}
 	
 	public void atualizarAtivoStatus() {
-		StoredProcedureQuery procedimento = entityManager.createStoredProcedureQuery("atualizarStatusAtivo");
-		procedimento.execute();
+		String atualizarStatusDisponivel = "UPDATE ativos JOIN manutencao ON ativos.id = manutencao.ativos_id SET ativos.status_id = 1 WHERE CURDATE() NOT BETWEEN manutencao.data_inicio AND manutencao.data_final AND ativos.id = 3";
+		String atualizarStatusManutencao = "UPDATE ativos JOIN manutencao ON ativos.id = manutencao.ativos_id SET ativos.status_id = 2 WHERE CURRENT_DATE() BETWEEN manutencao.data_inicio AND manutencao.data_final";
+		entityManager.createNativeQuery(atualizarStatusDisponivel).executeUpdate();
+		entityManager.createNativeQuery(atualizarStatusManutencao).executeUpdate();
 	}
-	
 }
