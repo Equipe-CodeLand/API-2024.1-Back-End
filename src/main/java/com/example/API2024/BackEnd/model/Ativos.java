@@ -24,7 +24,10 @@ public class Ativos {
 
 	@Column
 	private String nome;
-
+	
+	@Column
+	private String notaFiscal;
+	
 	@Column
 	private String descricao;
 
@@ -53,26 +56,8 @@ public class Ativos {
 	@JoinColumn(name="status_id")
 	private Status status;
 
-	@OneToOne
-	@JoinColumn(name = "nota_fiscal_id")
-	private NotaFiscal notaFiscal;
-
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-    
-/*	public Ativos update(AtivosDto ativos){
-		this.setNome(ativos.getNome());
-		this.setDescricao(ativos.getDescricao());
-		this.setPreco_aquisicao(ativos.getPreco_aquisicao());
-		this.setModelo(ativos.getModelo());
-		this.setMarca(ativos.getMarca());
-		this.setStatus(ativos.getStatus());
-		this.setUsuario(ativos.getUsuario());
-		this.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
-		this.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
-		
-		return this;
-	}*/
 
 }

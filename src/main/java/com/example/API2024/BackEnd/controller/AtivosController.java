@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
+import com.example.API2024.BackEnd.service.AtivosService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -28,6 +29,9 @@ public class AtivosController {
 
     @Autowired
     public AtivosRepository repositorio;
+    
+    @Autowired
+    public AtivosService ativoService;
 
 	@Autowired
 	private HistoricoRepository historicoRepository;
@@ -78,9 +82,9 @@ public class AtivosController {
 			return null;
         }
     }
-    
+
     @DeleteMapping("/delete/ativos/{id}")
     public void deleteAtivos(@PathVariable Long id) {
-        repositorio.deleteById(id);
+        ativosService.delete(id);
     }
 }

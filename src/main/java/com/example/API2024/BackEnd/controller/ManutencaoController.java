@@ -23,7 +23,7 @@ import com.example.API2024.BackEnd.repository.ManutencaoRepository;
 import com.example.API2024.BackEnd.service.ManutencaoService;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000" )
 @RestController
 @RequestMapping(value = "/manutencao")
 public class ManutencaoController {

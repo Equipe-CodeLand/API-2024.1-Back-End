@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Historico;
 import com.example.API2024.BackEnd.model.Status;
+import com.example.API2024.BackEnd.model.Usuario;
 
 import com.example.API2024.BackEnd.model.Usuario;
 import lombok.Data;
@@ -15,7 +16,9 @@ import lombok.Data;
 public class AtivosDto {
 	
 	private String nome;
-
+	
+	private String notaFiscal;
+	
 	private String descricao;
 
 	private double preco_aquisicao;
@@ -26,15 +29,16 @@ public class AtivosDto {
 	
 	private Status status;
 	
+	private Usuario usuario;
+	
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
 
-	private Usuario usuario;
-
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
 		ativos.setNome(nome);
+		ativos.setNotaFiscal(notaFiscal);
 		ativos.setDescricao(descricao);
 		ativos.setPreco_aquisicao(preco_aquisicao);
 		ativos.setModelo(modelo);
@@ -42,11 +46,13 @@ public class AtivosDto {
 		ativos.setStatus(status);
 		ativos.setUsuario(usuario);
 		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
+
 		if (dataExpiracao != null && !dataExpiracao.isEmpty()) {
 			ativos.setDataExpiracao(LocalDate.parse(dataExpiracao));
 		} else {
 			ativos.setDataExpiracao(null);
 		}
+
 		return ativos;
 	}
 }
