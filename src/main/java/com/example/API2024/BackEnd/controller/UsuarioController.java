@@ -42,6 +42,10 @@ public class UsuarioController {
 	public void cadastrarUsuario(@RequestBody UsuarioDto usuario) throws Exception { 
 		usuarioService.cadastrarUsuario(usuario);
 	}
+
+	@GetMapping("/listar")
+	public List<Usuario> listarUsuarios() { return usuarioRepository.findAll(); }
+
 	@GetMapping("/{cpf}/cargo")
 	public String getCargo(@PathVariable String cpf) throws Exception {
 		return usuarioService.buscarUsuarioPorCpf(cpf).getCargo().getNome();
