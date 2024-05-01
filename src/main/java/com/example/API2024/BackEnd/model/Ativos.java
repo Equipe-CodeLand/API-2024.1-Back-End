@@ -24,7 +24,10 @@ public class Ativos {
 
 	@Column
 	private String nome;
-
+	
+	@Column
+	private String notaFiscal;
+	
 	@Column
 	private String descricao;
 
@@ -52,10 +55,6 @@ public class Ativos {
 	@ManyToOne
 	@JoinColumn(name="status_id")
 	private Status status;
-
-	@OneToOne
-	@JoinColumn(name = "nota_fiscal_id")
-	private NotaFiscal notaFiscal;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")

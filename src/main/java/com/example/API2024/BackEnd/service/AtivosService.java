@@ -30,6 +30,7 @@ public class AtivosService {
 	public Ativos update(Long id, AtivosDto ativos) throws Exception{
     	Ativos ativo = ativosRepository.findById(id).orElse(null);
 		ativo.setNome(ativos.getNome());
+		ativo.setNotaFiscal(ativos.getNotaFiscal());
 		ativo.setDescricao(ativos.getDescricao());
 		ativo.setPreco_aquisicao(ativos.getPreco_aquisicao());
 		ativo.setModelo(ativos.getModelo());
