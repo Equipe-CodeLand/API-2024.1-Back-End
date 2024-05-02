@@ -52,7 +52,7 @@ public class AtivosService {
 
 	@Transactional
 	public void atualizarAtivoStatus() {
-		String atualizarStatusDisponivel = "UPDATE ativos SET status_id = 1 WHERE id = 2";
+		String atualizarStatusDisponivel = "UPDATE ativos SET status_id = 1 WHERE status_id = 2";
 		String atualizarStatusManutencao = "UPDATE ativos JOIN manutencao ON ativos.id = manutencao.ativos_id SET ativos.status_id = 2 WHERE CURRENT_DATE() BETWEEN manutencao.data_inicio AND manutencao.data_final";
 		entityManager.createNativeQuery(atualizarStatusDisponivel).executeUpdate();
 		entityManager.createNativeQuery(atualizarStatusManutencao).executeUpdate();
