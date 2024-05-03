@@ -44,6 +44,7 @@ public class AtivosController {
 
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
+        ativosService.atualizarAtivoStatus();
         return repositorio.findAll();
     }
 
