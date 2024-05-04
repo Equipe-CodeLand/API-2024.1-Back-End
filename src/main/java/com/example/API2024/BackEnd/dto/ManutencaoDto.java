@@ -6,9 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.example.API2024.BackEnd.model.Manutencao;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class ManutencaoDto {

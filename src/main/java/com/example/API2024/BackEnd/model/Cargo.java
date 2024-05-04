@@ -5,21 +5,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Administrador {
-
+public class Cargo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private Long id;
 
 	@Column
-	private String nome_adm;
-
-	@Column
-	private String cpf;
-
-	@Column
-	private String email;
-
-	@Column
-	private String senha;
+	private String nome;
 }
