@@ -23,5 +23,8 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "cargo_id")
 	private Cargo cargo;
+	
+	@Column
+	private boolean estaAtivo;
 
 }

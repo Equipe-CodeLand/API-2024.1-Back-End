@@ -30,6 +30,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			throw new UsernameNotFoundException(cpf);
 		}
 		Credencial credencial = usuario.getCredencial();
-		return new UserDetailsImpl(credencial.getCpf(), credencial.getSenha(), usuario.getCargo());
+		return new UserDetailsImpl(credencial.getCpf(), credencial.getSenha(), usuario.getCargo(), usuario.isEstaAtivo());
 	}
 }
