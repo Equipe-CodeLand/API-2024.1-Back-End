@@ -27,7 +27,10 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "cargo_id")
 	private Cargo cargo;
-	
+		
+	@Column
+	private boolean estaAtivo;
+
 	public Usuario update(UsuarioUpdateDto usuarioUpdateDto, Cargo cargo) {
 		this.setNome(usuarioUpdateDto.getNome());
 		this.setCargo(cargo);

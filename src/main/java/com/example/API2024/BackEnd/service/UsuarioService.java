@@ -49,7 +49,32 @@ public class UsuarioService {
 		usuario.setCargo(cargo);
 		Credencial credencial = credencialService.criarCredencial(usuarioDto.getCpf(), usuarioDto.getSenha());
 		usuario.setCredencial(credencial);
+		usuario.setEstaAtivo(true);
 		usuarioRepository.save(usuario);
 	}
+
+	public ResponseEntity<String> inativarUsuario(Long id) throws Exception {
+		Usuario usuario = buscarUsuarioPorId(id);
+		usuario.setEstaAtivo(false);
+		usuario = usuarioRepository.save(usuario);
+		if( !usuario.isEstaAtivo()) {
+			return ResponseEntity.ok("Usuario inativado");
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+
+	public ResponseEntity<String> ativarUsuario(Long id) throws Exception {
+		Usuario usuario = buscarUsuarioPorId(id);
+		usuario.setEstaAtivo(true);
+		usuario = usuarioRepository.save(usuario);
+		if( usuario.isEstaAtivo()) {
+			return ResponseEntity.ok("Usuario ativado");
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+
+	
 }
 

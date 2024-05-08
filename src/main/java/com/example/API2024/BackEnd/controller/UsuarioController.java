@@ -47,6 +47,14 @@ public class UsuarioController {
 	public String getCargo(@PathVariable String cpf) throws Exception {
 		return usuarioService.buscarUsuarioPorCpf(cpf).getCargo().getNome();
 	}
+	@PutMapping("{id}/inativar")
+	public ResponseEntity<String> inativarUsuario(@PathVariable Long id) throws Exception {
+		return usuarioService.inativarUsuario(id);
+	}
+	@PutMapping("{id}/ativar")
+	public ResponseEntity<String> ativarUsuario(@PathVariable Long id) throws Exception {
+		return usuarioService.ativarUsuario(id);
+	}
 	
 	@PutMapping("/atualizar/usuario/{id}")
 	public Usuario atualizar(@RequestBody UsuarioUpdateDto usuariodto, @PathVariable Long id) throws Exception {
