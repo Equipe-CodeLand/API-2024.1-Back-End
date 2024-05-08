@@ -1,16 +1,14 @@
 package com.example.API2024.BackEnd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.dto.UsuarioDto;
 import com.example.API2024.BackEnd.dto.UsuarioUpdateDto;
-import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Cargo;
 import com.example.API2024.BackEnd.model.Credencial;
-import com.example.API2024.BackEnd.model.Manutencao;
 import com.example.API2024.BackEnd.model.Usuario;
 import com.example.API2024.BackEnd.repository.UsuarioRepository;
 
