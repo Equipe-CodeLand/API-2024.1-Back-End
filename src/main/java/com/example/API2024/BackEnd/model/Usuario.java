@@ -15,6 +15,9 @@ public class Usuario {
 
 	@Column
 	private String nome;
+	
+	@Column
+	private String email;
 
 	@ManyToOne
 	@JoinColumn(name = "credencial_id")
