@@ -19,7 +19,7 @@ public class EmailServiceImpl implements EmailInterface {
 	private JavaMailSender javaMailSender;
 	
 	@Override
-	public String sendMail(String to, String[] cc, String subject, String body) {
+	public String sendMail(String to, String subject, String body) {
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 			
@@ -27,7 +27,6 @@ public class EmailServiceImpl implements EmailInterface {
 			
 			mimeMessageHelper.setFrom(fromEmail);
 			mimeMessageHelper.setTo(to);
-			mimeMessageHelper.setCc(cc);
 			mimeMessageHelper.setSubject(subject);
 			mimeMessageHelper.setText(body);
 			

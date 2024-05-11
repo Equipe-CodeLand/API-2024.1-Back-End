@@ -18,9 +18,8 @@ public class EmailSendController {
 	@PostMapping("/email/send")
 	public String send(@RequestBody EmailSendRequest emailRequest){
 		String to = emailRequest.getTo();
-		String[] cc = emailRequest.getCc();
 		String subject = emailRequest.getSubject();
 		String body = emailRequest.getBody();
-		return emailInterface.sendMail(to, cc, subject, body);
+		return emailInterface.sendMail(to, subject, body);
 	}
 }
