@@ -40,6 +40,7 @@ public class UsuarioService {
 	
 	public void cadastrarUsuario(UsuarioDto usuarioDto) throws Exception {
 		Usuario usuario = usuarioDto.toEntity();
+		usuario.setEmail(usuarioDto.getEmail());
 		Cargo cargo = cargoService.buscarCargoPorId(usuarioDto.getCargo());
 		usuario.setCargo(cargo);
 		Credencial credencial = credencialService.criarCredencial(usuarioDto.getCpf(), usuarioDto.getSenha());
