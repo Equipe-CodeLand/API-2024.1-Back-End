@@ -26,23 +26,23 @@ public class AutenticacaoService {
 		private JwtGenerator jwtGenerator;
 		
 		public AcessoDto login(AutenticacaoDto autenticacaoDto) {
-			try {
-				UsernamePasswordAuthenticationToken userAuth = 
-						new UsernamePasswordAuthenticationToken(autenticacaoDto.getCpf(), autenticacaoDto.getSenha());
-				
-				Authentication authentication = gerenciadorAutenticacao.authenticate(userAuth);
-				
-				UserDetailsImpl userAuthenticate = (UserDetailsImpl)authentication.getPrincipal();
-				
-				String token = jwtGenerator.generateTokenFromUserDetailsImpl(userAuthenticate);
-				
-				AcessoDto accessDto = new AcessoDto(token);
-				
-				return accessDto;
-				
-				}catch(BadCredentialsException e) {
-					//TODO LOGIN OU SENHA INVALIDO
-				}
-				return new AcessoDto("Acesso negado");
-			}
+		    try {
+		        UsernamePasswordAuthenticationToken userAuth = 
+		                new UsernamePasswordAuthenticationToken(autenticacaoDto.getCpf(), autenticacaoDto.getSenha());
+		        
+		        Authentication authentication = gerenciadorAutenticacao.authenticate(userAuth);
+		        
+		        UserDetailsImpl userAuthenticate = (UserDetailsImpl)authentication.getPrincipal();
+		        
+		        String token = jwtGenerator.generateTokenFromUserDetailsImpl(userAuthenticate);
+		        
+		        AcessoDto accessDto = new AcessoDto(token);
+		        
+		        return accessDto;
+		        
+		    }catch(BadCredentialsException e) {
+		        //TODO LOGIN OU SENHA INVALIDO
+		    }
+		    return new AcessoDto("Acesso negado");
+		}
 }
