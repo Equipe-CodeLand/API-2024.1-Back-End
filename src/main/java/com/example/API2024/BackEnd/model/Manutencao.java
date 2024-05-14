@@ -1,6 +1,8 @@
 package com.example.API2024.BackEnd.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
