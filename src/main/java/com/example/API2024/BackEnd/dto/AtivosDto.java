@@ -1,33 +1,17 @@
 package com.example.API2024.BackEnd.dto;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import org.springframework.web.multipart.MultipartFile;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Scanner;
 
 import com.example.API2024.BackEnd.model.Ativos;
-import com.example.API2024.BackEnd.model.Historico;
-import com.example.API2024.BackEnd.model.NotaFiscal;
 import com.example.API2024.BackEnd.model.Status;
 import com.example.API2024.BackEnd.model.Usuario;
-import com.example.API2024.BackEnd.utils.AdicionarArquivo;
 
-import com.example.API2024.BackEnd.model.Usuario;
 import lombok.Data;
 
 @Data
 public class AtivosDto {
 	
 	private String nome;
-	
-	private MultipartFile notaFiscal;
 	
 	private String descricao;
 
@@ -48,7 +32,6 @@ public class AtivosDto {
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
 		ativos.setNome(nome);
-		ativos.setNotaFiscal(notaFiscal);
 		ativos.setDescricao(descricao);
 		ativos.setPreco_aquisicao(preco_aquisicao);
 		ativos.setModelo(modelo);

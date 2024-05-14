@@ -3,21 +3,17 @@ package com.example.API2024.BackEnd.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.API2024.BackEnd.model.Historico;
-import com.example.API2024.BackEnd.repository.HistoricoRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.API2024.BackEnd.dto.AtivosDto;
-import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.model.Ativos;
-import com.example.API2024.BackEnd.model.Manutencao;
+import com.example.API2024.BackEnd.model.Historico;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
-import com.example.API2024.BackEnd.repository.ManutencaoRepository;
+import com.example.API2024.BackEnd.repository.HistoricoRepository;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 
 @Service
 public class AtivosService {
@@ -29,15 +25,11 @@ public class AtivosService {
 	private HistoricoRepository historicoRepository;
 
 	@Autowired
-	private HistoricoService historicoService;
-
-	@Autowired
 	private EntityManager entityManager;
 
 	public Ativos update(Long id, AtivosDto ativos) throws Exception{
     	Ativos ativo = ativosRepository.findById(id).orElse(null);
 		ativo.setNome(ativos.getNome());
-		ativo.setNotaFiscal(ativos.getNotaFiscal());
 		ativo.setDescricao(ativos.getDescricao());
 		ativo.setPreco_aquisicao(ativos.getPreco_aquisicao());
 		ativo.setModelo(ativos.getModelo());
