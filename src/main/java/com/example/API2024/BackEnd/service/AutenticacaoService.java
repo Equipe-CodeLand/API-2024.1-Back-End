@@ -1,8 +1,13 @@
 package com.example.API2024.BackEnd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.RequestEntity.BodyBuilder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,24 +30,25 @@ public class AutenticacaoService {
 		@Autowired
 		private JwtGenerator jwtGenerator;
 		
-		public AcessoDto login(AutenticacaoDto autenticacaoDto) {
-		    try {
-		        UsernamePasswordAuthenticationToken userAuth = 
-		                new UsernamePasswordAuthenticationToken(autenticacaoDto.getCpf(), autenticacaoDto.getSenha());
-		        
-		        Authentication authentication = gerenciadorAutenticacao.authenticate(userAuth);
-		        
-		        UserDetailsImpl userAuthenticate = (UserDetailsImpl)authentication.getPrincipal();
-		        
-		        String token = jwtGenerator.generateTokenFromUserDetailsImpl(userAuthenticate);
-		        
-		        AcessoDto accessDto = new AcessoDto(token);
-		        
-		        return accessDto;
-		        
-		    }catch(BadCredentialsException e) {
-		        //TODO LOGIN OU SENHA INVALIDO
-		    }
-		    return new AcessoDto("Acesso negado");
-		}
+		public ResponseEntity<?> login(AutenticacaoDto autenticacaoDto) {
+			try {
+				UsernamePasswordAuthenticationToken userAuth = 
+						new UsernamePasswordAuthenticationToken(autenticacaoDto.getCpf(), autenticacaoDto.getSenha());
+				
+				Authentication authentication = gerenciadorAutenticacao.authenticate(userAuth);
+				
+				UserDetailsImpl userAuthenticate = (UserDetailsImpl)authentication.getPrincipal();
+				
+				String token = jwtGenerator.generateTokenFromUserDetailsImpl(userAuthenticate);
+				
+				AcessoDto accessDto = new AcessoDto(token);
+				
+				return ResponseEntity.ok(accessDto);
+				
+				}catch(BadCredentialsException e) {
+					return new ResponseEntity<>("CPF ou senha incorretos", HttpStatus.UNAUTHORIZED);
+				} catch(DisabledException e) {
+					return new ResponseEntity<>("Usuário inativo", HttpStatus.UNAUTHORIZED);
+				}
+			}
 }
