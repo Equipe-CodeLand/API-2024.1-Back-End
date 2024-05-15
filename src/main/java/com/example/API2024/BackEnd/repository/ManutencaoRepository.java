@@ -12,9 +12,9 @@ import java.util.List;
 public interface ManutencaoRepository extends JpaRepository<Manutencao, Long> {
 	List<Manutencao> findByAtivos_Nome(String nome);
 	
-	@Query("SELECT m FROM Manutencao m WHERE m.data_inicio = :dataInicio")
+	@Query("SELECT m FROM Manutencao m WHERE m.data_inicio >= :dataInicio")
 	List<Manutencao> findByData_inicio(LocalDate dataInicio);
 	
-	@Query("SELECT m FROM Manutencao m WHERE m.data_final = :dataFinal")
+	@Query("SELECT m FROM Manutencao m WHERE m.data_final <= :dataFinal")
 	List<Manutencao> findByData_final(LocalDate dataFinal);
 }
