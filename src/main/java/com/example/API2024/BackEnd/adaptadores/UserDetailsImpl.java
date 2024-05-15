@@ -16,14 +16,16 @@ public class UserDetailsImpl implements UserDetails{
 	private String cpf;
 	private String senha;
 	private Collection<? extends GrantedAuthority> cargo;
+	private boolean estaAtivo;
 
 	public UserDetailsImpl() {
 	}
 
-	public UserDetailsImpl(String cpf, String senha, Cargo cargo) {
+	public UserDetailsImpl(String cpf, String senha, Cargo cargo, boolean estaAtivo) {
 		this.cpf = cpf;
 		this.senha = senha;
 		this.gerarCargo(cargo);
+		this.estaAtivo = estaAtivo;
 	}
 	
 	private void gerarCargo(Cargo cargo) {
@@ -64,7 +66,7 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return estaAtivo;
 	}
 
 }

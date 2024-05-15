@@ -2,6 +2,7 @@ package com.example.API2024.BackEnd.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,10 @@ public class AutenticacaoController {
 
 	@PostMapping(value = "/login")
 		public ResponseEntity<?> login(@RequestBody AutenticacaoDto autenticacaoDto){
-			return ResponseEntity.ok(autenticacaoService.login(autenticacaoDto));
+			ResponseEntity<?> response = autenticacaoService.login(autenticacaoDto);
+			if(response.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response.getBody());
+			}
+			return ResponseEntity.ok(response.getBody());
 		}
 }
