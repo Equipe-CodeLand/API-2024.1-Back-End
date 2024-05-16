@@ -20,6 +20,6 @@ public interface ManutencaoRepository extends JpaRepository<Manutencao, Long> {
 	@Query("SELECT m FROM Manutencao m WHERE m.data_final <= :dataFinal")
 	List<Manutencao> findByData_final(LocalDate dataFinal);
 	
-	@Query("SELECT m FROM Manutencao m WHERE m.data_inicio BETWEEN :dataInicio AND :dataFinal")
-	List<Manutencao> findByDataInicioBetweenAndDataFinalBetween(LocalDate dataInicio, LocalDate dataFinal);
+	@Query("SELECT m FROM Manutencao m WHERE m.data_inicio >= :dataInicio AND m.data_final <= :dataFinal")
+	List<Manutencao> findByDataInicioAndDataFinal(LocalDate dataInicio, LocalDate dataFinal);
 }

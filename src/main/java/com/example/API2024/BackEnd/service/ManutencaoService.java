@@ -78,6 +78,6 @@ public class ManutencaoService {
 	}
 	
 	public List<Manutencao> filtrarPorDataInicioEDataFinal(LocalDate dataInicio, LocalDate dataFinal) {
-		return manutencaoRepository.findByDataInicioBetweenAndDataFinalBetween(dataInicio, dataFinal);
+		return manutencaoRepository.findByDataInicioAndDataFinal(dataInicio, dataFinal);
 	}
 }
