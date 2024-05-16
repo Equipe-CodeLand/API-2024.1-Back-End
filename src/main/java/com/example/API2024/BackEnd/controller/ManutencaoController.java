@@ -67,6 +67,13 @@ public class ManutencaoController {
 		return manutencaoService.filtrarPorNomeAtivo(nomeAtivoFormatado);
 	}
 	
+	@GetMapping("/filtrar/dataInicio/dataFinal")
+	public List<Manutencao> filtrarPorDataInicioEDataFinal(
+			@RequestParam("dataInicio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicio,
+			@RequestParam("dataFinal") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
+		return manutencaoService.filtrarPorDataInicioEDataFinal(dataInicio, dataFinal);
+	}
+	
 	@GetMapping("/filtrar/dataInicio")
 	public List<Manutencao> filtrarPorDataInicio(@RequestParam("dataInicio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicio) {
 		return manutencaoService.filtrarPorDataInicio(dataInicio);
