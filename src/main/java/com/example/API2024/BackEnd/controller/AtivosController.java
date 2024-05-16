@@ -78,7 +78,7 @@ public class AtivosController {
                 return ResponseEntity.notFound().build();
             }
         } catch(Exception e) {
-        	System.out.println("Erro ao atualizar a manutenção: " + e.getMessage());
+        	System.out.println("Erro ao atualizar a ativo: " + e.getMessage());
 			return null;
         }
     }
