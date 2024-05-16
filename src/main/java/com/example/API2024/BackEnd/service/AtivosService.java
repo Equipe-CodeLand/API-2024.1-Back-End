@@ -43,9 +43,19 @@ public class AtivosService {
 		ativo.setModelo(ativos.getModelo());
 		ativo.setMarca(ativos.getMarca());
 		ativo.setStatus(ativos.getStatus());
-		ativo.setUsuario(ativos.getUsuario());
 		ativo.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
-		ativo.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
+
+		if (ativos.getDataExpiracao() == null) {
+			ativo.setDataExpiracao(null);
+		} else {
+			ativo.setDataExpiracao(LocalDate.parse(ativos.getDataExpiracao()));
+		}
+
+		if (ativos.getUsuario() == null) {
+			ativo.setUsuario(null);
+		} else {
+			ativo.setUsuario(ativos.getUsuario());
+		}
 
 		return ativo;
 	}
