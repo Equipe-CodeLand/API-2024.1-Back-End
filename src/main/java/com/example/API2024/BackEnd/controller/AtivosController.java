@@ -1,12 +1,22 @@
 package com.example.API2024.BackEnd.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.API2024.BackEnd.model.Historico;
+import com.example.API2024.BackEnd.model.Ativos;
+import com.example.API2024.BackEnd.dto.AtivosDto;
+import com.example.API2024.BackEnd.repository.AtivosRepository;
+import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.model.Usuario;
 import com.example.API2024.BackEnd.repository.HistoricoRepository;
+import com.example.API2024.BackEnd.repository.UsuarioRepository;
+import com.example.API2024.BackEnd.selecionadores.UsuarioSelecionadorCPF;
 import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.service.HistoricoService;
+import com.example.API2024.BackEnd.service.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +32,7 @@ import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.service.AtivosService;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -29,23 +40,49 @@ public class AtivosController {
 
     @Autowired
     public AtivosRepository repositorio;
-    
+
     @Autowired
     public AtivosService ativoService;
 
-	@Autowired
-	private HistoricoRepository historicoRepository;
+    @Autowired
+   	private HistoricoRepository historicoRepository;
 
     @Autowired
     private HistoricoService historicoService;
     
     @Autowired
     public AtivosService ativosService;
+    
+    @Autowired
+    private UsuarioService usuarioService;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    
+    @Autowired
+    private UsuarioSelecionadorCPF usuarioSelecionadorCPF;
 
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
-        ativosService.atualizarAtivoStatus();
-        return repositorio.findAll();
+    	ativosService.atualizarAtivoStatus();
+         return repositorio.findAll();
+    }
+
+    @GetMapping("/listar/ativos/{cpf}")
+    public List<Ativos> listarAtivosPorCPF(@PathVariable String cpf) {
+        try {
+        	List<Usuario> usuarios = usuarioRepository.findAll();
+        	Usuario usuario = usuarioSelecionadorCPF.selecionar(usuarios, cpf);
+        	ativosService.atualizarAtivoStatus();
+            if ("Funcionário".equals(usuario.getCargo().getNome())) {
+                return repositorio.findByUsuarioId(usuario.getId());
+            } else {
+                return new ArrayList<>();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     @PostMapping("/cadastrar/ativos")
@@ -65,10 +102,10 @@ public class AtivosController {
     @PutMapping("/atualizar/ativos/{id}")
     public ResponseEntity<Ativos> atualizarAtivos(@RequestBody AtivosDto ativosDto, @PathVariable Long id) {
         try {
-        	Ativos ativo = repositorio.findById(id).orElse(null);
+            Ativos ativo = repositorio.findById(id).orElse(null);
             if (ativo != null) {
                 Ativos ativoAtualizado = ativosService.update(id,ativosDto);
-                Ativos ativoSalvo =repositorio.save(ativoAtualizado);
+                Ativos ativoSalvo = repositorio.save(ativoAtualizado);
 
                 if(ativoAtualizado.getStatus().getNome_status().equals("Ocupado") && ativo.getUsuario() == ativoAtualizado.getUsuario()) {
                     historicoService.addHistorico(ativoAtualizado);
@@ -78,8 +115,8 @@ public class AtivosController {
                 return ResponseEntity.notFound().build();
             }
         } catch(Exception e) {
-        	System.out.println("Erro ao atualizar a manutenção: " + e.getMessage());
-			return null;
+            System.out.println("Erro ao atualizar a manutenção: " + e.getMessage());
+            return null;
         }
     }
 
