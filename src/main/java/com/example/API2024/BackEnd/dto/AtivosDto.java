@@ -28,6 +28,8 @@ public class AtivosDto {
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
+	
+	private String codigoNotaFiscal;
 
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();

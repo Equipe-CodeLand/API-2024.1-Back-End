@@ -33,7 +33,7 @@ public class SegurancaConfig{
 		return new BCryptPasswordEncoder();
 	}
 
-    private static final String[] rotasPublicas = {"/login", "/usuario/cadastrar"};
+    private static final String[] rotasPublicas = {"/login", "/usuario/cadastrar", "/ativos/nota-fiscal/{id}"};
     
 	@Bean
 	public AuthFilterToken authFilterToken() {

@@ -35,7 +35,6 @@ public class Ativos {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "nota_fiscal_id", referencedColumnName = "id")
-	@JsonBackReference
 	private NotaFiscal notaFiscal;
 	
 	@Column
