@@ -1,23 +1,17 @@
 package com.example.API2024.BackEnd.dto;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 
 import com.example.API2024.BackEnd.model.Ativos;
-import com.example.API2024.BackEnd.model.Historico;
 import com.example.API2024.BackEnd.model.Status;
 import com.example.API2024.BackEnd.model.Usuario;
 
-import com.example.API2024.BackEnd.model.Usuario;
 import lombok.Data;
 
 @Data
 public class AtivosDto {
 	
 	private String nome;
-	
-	private String notaFiscal;
 	
 	private String descricao;
 
@@ -34,11 +28,12 @@ public class AtivosDto {
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
+	
+	private String codigoNotaFiscal;
 
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
 		ativos.setNome(nome);
-		ativos.setNotaFiscal(notaFiscal);
 		ativos.setDescricao(descricao);
 		ativos.setPreco_aquisicao(preco_aquisicao);
 		ativos.setModelo(modelo);

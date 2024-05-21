@@ -4,12 +4,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,8 +33,9 @@ public class Ativos {
 	@Column
 	private String nome;
 	
-	@Column
-	private String notaFiscal;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "nota_fiscal_id", referencedColumnName = "id")
+	private NotaFiscal notaFiscal;
 	
 	@Column
 	private String descricao;
