@@ -51,6 +51,10 @@ public class AtivosService {
 
 		return ativo;
 	}
+	
+    public List<Ativos> findAtivosByUsuarioId(Long usuarioId) {
+        return ativosRepository.findByUsuarioId(usuarioId);
+    }
 
 	@Transactional
 	public void atualizarAtivoStatus() {
