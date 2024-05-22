@@ -30,6 +30,16 @@ public class CredencialController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@GetMapping("/credencial/{cpf}/verificar-senha")
+	public ResponseEntity<Boolean> verificarSenha(@PathVariable String cpf, @RequestParam String senha) {
+		try {
+			boolean senhaIgual = credencialService.verificarSenhaIgual(cpf, senha);
+			return new ResponseEntity<>(senhaIgual, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PutMapping("/credencial/{cpf}/senha")
 	public ResponseEntity<String> alterarSenha(@PathVariable String cpf) {
 		try {

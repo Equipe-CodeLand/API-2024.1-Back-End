@@ -44,6 +44,15 @@ public class CredencialService {
 		return credencial;
 	}
 	
+	public boolean verificarSenhaIgual(String cpf, String senha) throws Exception {
+		Credencial credencial = credencialRepository.findByCpf(cpf);
+		if (credencial != null) {
+			return passwordEncoder.matches(senha, credencial.getSenha());
+		} else {
+			throw new Exception("Credencial não encontrada para o CPF fornecido");
+		}
+	}
+	
 	public void enviarCodigoVerificacao(String cpf, String email) throws Exception {
 		String codigoVerificacao = gerarCodigoVerificacao();
 		String emailUsuario = getEmailDoUsuarioLogado(cpf, email);

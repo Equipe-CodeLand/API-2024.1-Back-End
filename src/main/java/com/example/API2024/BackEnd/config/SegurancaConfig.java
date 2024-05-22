@@ -34,7 +34,7 @@ public class SegurancaConfig{
 		return new BCryptPasswordEncoder();
 	}
 
-    private static final String[] rotasPublicas = {"/login", "/usuario/cadastrar", "/credencial/{cpf}/senha", "/credencial/{cpf}/senha/{codigoVerificacao}"};
+    private static final String[] rotasPublicas = {"/login", "/usuario/cadastrar", "/credencial/{cpf}/senha", "/credencial/{cpf}/senha/{codigoVerificacao}", "/credencial/{cpf}/verificar-senha"};
     
 	@Bean
 	public AuthFilterToken authFilterToken() {
