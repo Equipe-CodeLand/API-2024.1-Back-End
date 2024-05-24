@@ -1,8 +1,11 @@
 package com.example.API2024.BackEnd.service;
 
 import java.io.IOException;
+import java.nio.file.ProviderNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
+import com.example.API2024.BackEnd.repository.AtivosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -23,6 +26,9 @@ public class NotaFiscalService {
 	
 	@Autowired
 	private NotaFiscalRepository repositorio;
+	
+	@Autowired
+	private AtivosRepository ativosRepository;
 	
 	public void armazenarArquivo(NotaFiscal arquivo) {
 		this.repositorio.save(arquivo);
@@ -58,5 +64,18 @@ public class NotaFiscalService {
 	
 	public void excluirArquivo( NotaFiscal arquivo) {
 		this.repositorio.delete(arquivo);
+	}
+	
+	public void excluirNotaFiscal(Long idAtivo) {
+		Ativos ativo = ativosRepository.findById(idAtivo)
+				.orElseThrow(() -> new ProviderNotFoundException("Ativo não encontrado com o ID: " + idAtivo));
+		
+		NotaFiscal notaFiscal = ativo.getNotaFiscal();
+		if (notaFiscal != null) {
+			ativo.setNotaFiscal(null);
+			repositorio.deleteById(notaFiscal.getId());
+		} else {
+			throw new ProviderNotFoundException("Nota fiscal não encontrada para o ativo com o ID: " + idAtivo);
+		}
 	}
 }

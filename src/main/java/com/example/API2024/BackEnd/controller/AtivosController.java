@@ -56,20 +56,6 @@ public class AtivosController {
         ativosService.atualizarAtivoStatus();
         return repositorio.findAll();
     }
-    
-    @GetMapping("/ativos/nota-fiscal/{id}")
-    public ResponseEntity<Resource> buscarNotaFiscal(@PathVariable long id) {
-		Resource recurso = notaFiscalService.obterArquivoComoRecurso(id);
-		if (recurso == null) {
-			ResponseEntity<Resource> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			return resposta;
-		} else {
-			NotaFiscal arquivo = notaFiscalService.obterArquivo(id);
-			MediaType tipoArquivo = MediaType.parseMediaType(arquivo.getTipo());
-			ResponseEntity<Resource> resposta = ResponseEntity.ok().contentType(tipoArquivo).body(recurso);
-			return resposta;
-		}
-    }
 
     @PostMapping(value = "/cadastrar/ativos")
     public void cadastrarAtivos(@RequestPart AtivosDto ativosDto, @RequestParam(value = "file", required = false) MultipartFile arquivoEnviado) throws IOException {

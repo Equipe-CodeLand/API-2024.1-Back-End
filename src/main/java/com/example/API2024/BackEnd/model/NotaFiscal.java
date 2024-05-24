@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@JsonIgnoreProperties
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NoArgsConstructor
 public class NotaFiscal {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
