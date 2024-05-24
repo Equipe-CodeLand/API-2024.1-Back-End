@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,7 @@ import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.repository.NotaFiscalRepository;
 import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.service.HistoricoService;
+import com.example.API2024.BackEnd.service.NotaFiscalService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -45,6 +47,9 @@ public class AtivosController {
     
     @Autowired
     public AtivosService ativosService;
+    
+    @Autowired
+    private NotaFiscalService notaFiscalService;
 
     @GetMapping("/listar/ativos")
     public List<Ativos> listarAtivos() {
@@ -53,20 +58,21 @@ public class AtivosController {
     }
     
     @GetMapping("/ativos/nota-fiscal/{id}")
-    public ResponseEntity<Resource> buscarNotaFiscal(@PathVariable("id") Long id) {
-    	NotaFiscal notaFiscal = this.notaFiscalRepository.findById(id).get();
-    	if(notaFiscal.getBytes() != null) {
-    		Resource recurso = new ByteArrayResource(notaFiscal.getBytes());
-    		MediaType tipoArquivo = MediaType.parseMediaType(notaFiscal.getTipo());
-    		ResponseEntity<Resource> resposta = ResponseEntity.ok().contentType(tipoArquivo).body(recurso);    		
-    		return resposta;
-    	} else {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+    public ResponseEntity<Resource> buscarNotaFiscal(@PathVariable long id) {
+		Resource recurso = notaFiscalService.obterArquivoComoRecurso(id);
+		if (recurso == null) {
+			ResponseEntity<Resource> resposta = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return resposta;
+		} else {
+			NotaFiscal arquivo = notaFiscalService.obterArquivo(id);
+			MediaType tipoArquivo = MediaType.parseMediaType(arquivo.getTipo());
+			ResponseEntity<Resource> resposta = ResponseEntity.ok().contentType(tipoArquivo).body(recurso);
+			return resposta;
+		}
     }
 
     @PostMapping(value = "/cadastrar/ativos")
-    public void cadastrarAtivos(@RequestPart AtivosDto ativosDto, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+    public void cadastrarAtivos(@RequestPart AtivosDto ativosDto, @RequestParam(value = "file", required = false) MultipartFile arquivoEnviado) throws IOException {
         Ativos ativo = ativosDto.toEntity();
         
         NotaFiscal notaFiscal = new NotaFiscal();
@@ -75,13 +81,15 @@ public class AtivosController {
         	notaFiscal.setCodigo(ativosDto.getCodigoNotaFiscal());
         	ativo.setNotaFiscal(notaFiscal);
         }        
-        if( file != null) {
-        	notaFiscal.setBytes(file.getBytes());
-        	notaFiscal.setNome(file.getOriginalFilename());
-        	Long tamanho = file.getSize();
-        	notaFiscal.setTamanho(tamanho.toString());
-        	notaFiscal.setTipo(file.getContentType());
-        	ativo.setNotaFiscal(notaFiscal);
+        if( arquivoEnviado != null) {
+    		NotaFiscal arquivo = new NotaFiscal();
+    		arquivo.setBytes(arquivoEnviado.getBytes());
+    		arquivo.setNome(arquivoEnviado.getOriginalFilename());
+    		Long tamanho = arquivoEnviado.getSize();
+    		arquivo.setTamanho(tamanho.toString());
+    		arquivo.setTipo(arquivoEnviado.getContentType());
+    		notaFiscalService.armazenarArquivo(arquivo);
+    		ativo.setNotaFiscal(arquivo);
         }
         
         Ativos savedAtivo = repositorio.save(ativo);
