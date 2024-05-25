@@ -77,6 +77,8 @@ public class AtivosController {
     
     @Autowired
     private UsuarioSelecionadorCPF usuarioSelecionadorCPF;
+    
+    @Autowired
     private NotaFiscalService notaFiscalService;
 
     @GetMapping("/listar/ativos")
