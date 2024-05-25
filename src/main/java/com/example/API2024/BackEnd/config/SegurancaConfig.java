@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +34,7 @@ public class SegurancaConfig{
 		return new BCryptPasswordEncoder();
 	}
 
-    private static final String[] rotasPublicas = {"/login", "/usuario/cadastrar"};
+    private static final String[] rotasPublicas = {"/login", "/usuario/cadastrar", "/credencial/{cpf}/senha", "/credencial/{cpf}/senha/{codigoVerificacao}", "/credencial/{cpf}/verificar-senha", "/ativos/nota-fiscal/{id}", "/cadastrar/nota-fiscal", "/ativos/excluir/nota-fiscal/{idAtivo}"};
     
 	@Bean
 	public AuthFilterToken authFilterToken() {

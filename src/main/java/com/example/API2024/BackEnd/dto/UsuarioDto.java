@@ -14,6 +14,8 @@ public class UsuarioDto {
     private String cpf;
 
     private String senha;
+    
+    private String email;
 
     public Usuario toEntity() {
         Usuario usuario = new Usuario();

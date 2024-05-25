@@ -1,5 +1,10 @@
 package com.example.API2024.BackEnd.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +54,30 @@ public class ManutencaoService {
            manutencao.setAtivos(ativos);
         return manutencaoRepository.save(manutencao);
     }
+	
+	public Manutencao filtrarPorId(Long id) throws Exception {
+		return manutencaoRepository.findById(id).orElseThrow(() -> new Exception("Manutenção não encontrada"));
+	}
+	
+	public List<Manutencao> filtrarPorNomeAtivo(String nomeAtivo) {
+		try {
+			String nomeAtivoDecodificado = URLDecoder.decode(nomeAtivo, "UTF-8");
+			return manutencaoRepository.findByAtivos_Nome(nomeAtivoDecodificado);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+	
+	public List<Manutencao> filtrarPorDataInicio(LocalDate dataInicio) {
+		return manutencaoRepository.findByData_inicio(dataInicio);
+	}
+	
+	public List<Manutencao> filtrarPorDataFinal(LocalDate dataFinal) {
+		return manutencaoRepository.findByData_final(dataFinal);
+	}
+	
+	public List<Manutencao> filtrarPorDataInicioEDataFinal(LocalDate dataInicio, LocalDate dataFinal) {
+		return manutencaoRepository.findByDataInicioAndDataFinal(dataInicio, dataFinal);
+	}
 }

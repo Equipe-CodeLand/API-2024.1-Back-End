@@ -1,6 +1,6 @@
 INSERT INTO status (nome_status) VALUES ("Disponível");
-INSERT INTO status (nome_status) VALUES ("Ocupado");
 INSERT INTO Status (nome_status) VALUES ("Em manutenção");
+INSERT INTO status (nome_status) VALUES ("Ocupado");
 
 INSERT INTO setor (nome_setor) VALUES ("TI");
 INSERT INTO setor (nome_setor) VALUES ("Financeiro");

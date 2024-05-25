@@ -1,20 +1,16 @@
 package com.example.API2024.BackEnd.controller;
 
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+import com.example.API2024.BackEnd.dto.AtivosDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.API2024.BackEnd.dto.ManutencaoDto;
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
@@ -61,10 +57,31 @@ public class ManutencaoController {
 	}
 
 	@PostMapping("/cadastrar/{id}")
-	public Manutencao cadastrarManutencao(@RequestBody ManutencaoDto manutencao, @PathVariable Long id) { 
+	public Manutencao cadastrarManutencao(@RequestBody ManutencaoDto manutencao, @PathVariable Long id) {
 		return manutencaoService.cadastrarManutencao(manutencao.toEntity(), id);
 	}
+	
+	@GetMapping("/filtrar/{nomeAtivo}")
+	public List<Manutencao> filtrarPorNomeAtivo(@PathVariable String nomeAtivo) {
+		String nomeAtivoFormatado = nomeAtivo.replace(" ", "%20");
+		return manutencaoService.filtrarPorNomeAtivo(nomeAtivoFormatado);
+	}
+	
+	@GetMapping("/filtrar/dataInicio/dataFinal")
+	public List<Manutencao> filtrarPorDataInicioEDataFinal(
+			@RequestParam("dataInicio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicio,
+			@RequestParam("dataFinal") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
+		return manutencaoService.filtrarPorDataInicioEDataFinal(dataInicio, dataFinal);
+	}
+	
+	@GetMapping("/filtrar/dataInicio")
+	public List<Manutencao> filtrarPorDataInicio(@RequestParam("dataInicio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicio) {
+		return manutencaoService.filtrarPorDataInicio(dataInicio);
+	}
+	
+	@GetMapping("/filtrar/dataFinal")
+	public List<Manutencao> filtrarPorDataFinal(@RequestParam("dataFinal") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
+		return manutencaoService.filtrarPorDataFinal(dataFinal);
+	}
+	
 }
-
-
-
