@@ -1,6 +1,9 @@
 package com.example.API2024.BackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,24 +17,29 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NoArgsConstructor
 public class NotaFiscal {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
 	@Column
 	private String nome;
 	@Column
 	private String tamanho;
 	@Column
 	private String tipo;
+	
 	@Column
 	private String codigo;
+	
 	@Lob
-	@Column
+	@Column(columnDefinition = "LONGBLOB")
 	@JsonIgnore
 	private byte[] bytes;
+	
 	@OneToOne(mappedBy="notaFiscal")
-	@JsonIgnore
+	@JsonBackReference
 	private Ativos ativos;
 }
