@@ -58,6 +58,7 @@ public class UsuarioController {
 	
 	@PutMapping("/atualizar/usuario/{id}")
 	public Usuario atualizar(@RequestBody UsuarioUpdateDto usuariodto, @PathVariable Long id) throws Exception {
+		System.out.println(usuariodto);
 		return usuarioService.atualizar(id, usuariodto);
 	}
 }

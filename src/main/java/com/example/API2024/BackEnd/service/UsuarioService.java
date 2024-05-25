@@ -37,8 +37,8 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado"));		
 		Cargo cargo = cargoService.buscarCargoPorId(usuarioUpdateDto.getCargo());
 		Usuario usuarioAtualizado = usuario.update(usuarioUpdateDto, cargo);
+		usuario.setEmail(usuarioUpdateDto.getEmail());
 		return usuarioRepository.save(usuarioAtualizado);
-		
 	}
 	
 	public void cadastrarUsuario(UsuarioDto usuarioDto) throws Exception {
