@@ -77,6 +77,8 @@ public class AtivosController {
     
     @Autowired
     private UsuarioSelecionadorCPF usuarioSelecionadorCPF;
+    
+    @Autowired
     private NotaFiscalService notaFiscalService;
 
     @GetMapping("/listar/ativos")
@@ -105,13 +107,7 @@ public class AtivosController {
     @PostMapping(value = "/cadastrar/ativos")
     public void cadastrarAtivos(@RequestPart AtivosDto ativosDto, @RequestParam(value = "file", required = false) MultipartFile arquivoEnviado) throws IOException {
         Ativos ativo = ativosDto.toEntity();
-        
-        NotaFiscal notaFiscal = new NotaFiscal();
-        
-        if(ativosDto.getCodigoNotaFiscal() != null) {
-        	notaFiscal.setCodigo(ativosDto.getCodigoNotaFiscal());
-        	ativo.setNotaFiscal(notaFiscal);
-        }        
+              
         if( arquivoEnviado != null) {
     		NotaFiscal arquivo = new NotaFiscal();
     		arquivo.setBytes(arquivoEnviado.getBytes());

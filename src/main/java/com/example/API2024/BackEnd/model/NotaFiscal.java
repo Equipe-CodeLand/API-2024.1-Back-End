@@ -31,9 +31,6 @@ public class NotaFiscal {
 	@Column
 	private String tipo;
 	
-	@Column
-	private String codigo;
-	
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	@JsonIgnore

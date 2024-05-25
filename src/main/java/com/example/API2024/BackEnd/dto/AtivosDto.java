@@ -22,14 +22,14 @@ public class AtivosDto {
 	private String marca;
 	
 	private Status status;
-	
+		
 	private Usuario usuario;
 	
 	private String dataAquisicao;
 	
 	private String dataExpiracao;
 	
-	private String codigoNotaFiscal;
+	private String codigo_nota_fiscal;
 
 	public Ativos toEntity() {
 		Ativos ativos = new Ativos();
@@ -40,6 +40,7 @@ public class AtivosDto {
 		ativos.setMarca(marca);
 		ativos.setStatus(status);
 		ativos.setUsuario(usuario);
+		ativos.setCodigo_nota_fiscal(codigo_nota_fiscal);
 		ativos.setDataAquisicao(LocalDate.parse(dataAquisicao));
 
 		if (dataExpiracao != null && !dataExpiracao.isEmpty()) {

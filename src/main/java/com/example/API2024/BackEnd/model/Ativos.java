@@ -50,6 +50,9 @@ public class Ativos {
 	private String marca;
 	
 	@Column
+	private String codigo_nota_fiscal;
+	
+	@Column
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dataAquisicao;
 

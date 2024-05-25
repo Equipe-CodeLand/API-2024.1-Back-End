@@ -35,6 +35,7 @@ public class AtivosService {
 		ativo.setModelo(ativos.getModelo());
 		ativo.setMarca(ativos.getMarca());
 		ativo.setStatus(ativos.getStatus());
+		ativo.setCodigo_nota_fiscal(ativos.getCodigo_nota_fiscal());
 		ativo.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
 
 		if (ativos.getDataExpiracao() == null) {
