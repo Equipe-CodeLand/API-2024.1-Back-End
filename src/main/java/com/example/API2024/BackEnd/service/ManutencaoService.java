@@ -3,6 +3,7 @@ package com.example.API2024.BackEnd.service;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,4 +81,30 @@ public class ManutencaoService {
 	public List<Manutencao> filtrarPorDataInicioEDataFinal(LocalDate dataInicio, LocalDate dataFinal) {
 		return manutencaoRepository.findByDataInicioAndDataFinal(dataInicio, dataFinal);
 	}
+	
+	public List<Integer> buscarQntManutencoesProximos (List<Manutencao> manutencoes, LocalDate data){
+		List<Integer> valores = new ArrayList<Integer>();
+		Integer periodo1 = 0;
+		Integer periodo2 = 0;
+		Integer periodo3 = 0;
+		
+		for( Manutencao manutencao : manutencoes) {
+			long prazo = ChronoUnit.DAYS.between(data, manutencao.getData_inicio());
+			if (prazo > 0 && prazo <= 15) {
+				periodo1 ++;
+			}
+			else if (prazo > 0 && prazo <= 30) {
+				periodo2 ++;
+			}
+			else if (prazo > 0 && prazo <= 60) {
+				periodo3 ++;
+			}
+		}
+		
+		valores.add(periodo1);
+		valores.add(periodo2);
+		valores.add(periodo3);
+		return valores;
+	}
+	
 }

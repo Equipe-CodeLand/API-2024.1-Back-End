@@ -1,6 +1,8 @@
 package com.example.API2024.BackEnd.service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,12 +71,94 @@ public class AtivosService {
 	public void delete(Long id) {
 		Ativos ativo = ativosRepository.findById(id).orElse(null);
 		if (ativo != null) {
-			// Excluir o histórico associado ao ativo
 			List<Historico> historicoList = historicoRepository.findByAtivoId(ativo.getId());
 			historicoRepository.deleteAll(historicoList);
 
-			// Excluir o ativo
 			ativosRepository.delete(ativo);
 		}
+	}
+	
+	public List<Ativos> filtrarPorDataInicioEDataFinal(LocalDate dataInicio, LocalDate dataFinal) {
+		List<Ativos> ativosFiltrados = new ArrayList<Ativos>();
+		List<Ativos> ativos = ativosRepository.findAll();
+		for(Ativos ativo : ativos) {
+			if(ativo.getDataAquisicao().isAfter(dataInicio) && ativo.getDataAquisicao().isBefore(dataFinal)) {
+				ativosFiltrados.add(ativo);
+			}
+		}
+		return ativosFiltrados;
+	}
+	
+	public List<Ativos> filtrarPorExpiracaoProxima(List<Ativos> ativos, LocalDate data, Integer intervalo) {
+		List<Ativos> ativosFiltrados = new ArrayList<Ativos>();
+		for(Ativos ativo : ativos) {
+			if(ativo.getDataExpiracao() != null) {				
+				long dias = ChronoUnit.DAYS.between(data, ativo.getDataExpiracao());
+				if(dias <= intervalo) {
+					ativosFiltrados.add(ativo);
+				}
+			}
+		}
+		return ativosFiltrados;
+	}
+	
+	public List<Double> buscarValorTotalPorStatus (List<Ativos> ativos){
+		List<Double> valores = new ArrayList<Double>();
+		Double valorDisponivel = 0.0;
+		Double valorOcupado = 0.0;
+		Double valorEmManutencao = 0.0;
+		for(Ativos ativo : ativos) {
+			switch (ativo.getStatus().getNome_status()) {
+			case "Disponível": {
+				valorDisponivel += ativo.getPreco_aquisicao();
+				break;
+			}
+			case "Em manutenção": {
+				valorEmManutencao += ativo.getPreco_aquisicao();
+				break;
+			}
+			case "Ocupado": {
+				valorOcupado += ativo.getPreco_aquisicao();
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		valores.add(valorDisponivel);
+		valores.add(valorEmManutencao);
+		valores.add(valorOcupado);
+		return valores;
+	}
+	
+	public List<Integer> buscarQntAtivosPorStatus(List<Ativos> ativos){
+		List<Integer> valores = new ArrayList<Integer>();
+		Integer valorDisponivel = 0;
+		Integer valorOcupado = 0;
+		Integer valorEmManutencao = 0;
+		
+		for(Ativos ativo : ativos) {
+			switch (ativo.getStatus().getNome_status()) {
+			case "Disponível": {
+				valorDisponivel ++;
+				break;
+			}
+			case "Em manutenção": {
+				valorEmManutencao ++;
+				break;
+			}
+			case "Ocupado": {
+				valorOcupado ++;
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		
+		valores.add(valorDisponivel);
+		valores.add(valorEmManutencao);
+		valores.add(valorOcupado);
+		return valores;
 	}
 }
