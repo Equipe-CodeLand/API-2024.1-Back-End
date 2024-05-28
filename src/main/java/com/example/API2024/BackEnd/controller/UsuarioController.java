@@ -39,6 +39,11 @@ public class UsuarioController {
 	public void cadastrarUsuario(@RequestBody UsuarioDto usuario) throws Exception { 
 		usuarioService.cadastrarUsuario(usuario);
 	}
+	
+	@GetMapping("/listar/ativados")
+	public List<Usuario> listarUsuariosAtivados(){
+		return usuarioService.buscarUsuariosAtivados();
+	}
 
 	@GetMapping("/listar")
 	public List<Usuario> listarUsuarios() { return usuarioRepository.findAll(); }

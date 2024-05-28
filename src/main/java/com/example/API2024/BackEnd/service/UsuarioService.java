@@ -1,5 +1,8 @@
 package com.example.API2024.BackEnd.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +34,18 @@ public class UsuarioService {
 	
 	public Usuario buscarUsuarioPorCpf(String cpf) throws Exception {
 		return usuarioRepository.findByCredencialCpf(cpf).orElseThrow(() -> new Exception("Usuário não encontrado"));
-	}		
+	}	
+	
+	public List<Usuario> buscarUsuariosAtivados (){
+		List<Usuario> usuariosFiltrados = new ArrayList<Usuario>();
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		for(Usuario usuario : usuarios) {
+			if (usuario.isEstaAtivo()) {
+				usuariosFiltrados.add(usuario);
+			}
+		}
+		return usuariosFiltrados;
+	}
 	
 	public Usuario atualizar(Long id,UsuarioUpdateDto usuarioUpdateDto) throws Exception {
 		Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado"));		
