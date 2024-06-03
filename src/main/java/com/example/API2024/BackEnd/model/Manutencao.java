@@ -34,6 +34,9 @@ public class Manutencao {
 	@Column
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate data_final;
+	
+	@Column
+	private String descricao;
 
 	@Column
 	private String localizacao;
