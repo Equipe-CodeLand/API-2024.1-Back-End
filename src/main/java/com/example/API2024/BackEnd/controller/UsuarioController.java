@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.dto.UsuarioDto;
 import com.example.API2024.BackEnd.dto.UsuarioUpdateDto;
-import com.example.API2024.BackEnd.model.Ativos;
-import com.example.API2024.BackEnd.model.Manutencao;
 import com.example.API2024.BackEnd.model.Usuario;
 import com.example.API2024.BackEnd.repository.UsuarioRepository;
 import com.example.API2024.BackEnd.service.UsuarioService;
@@ -62,8 +59,7 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/atualizar/usuario/{id}")
-	public Usuario atualizar(@RequestBody UsuarioUpdateDto usuariodto, @PathVariable Long id) throws Exception {
-		System.out.println(usuariodto);
+	public ResponseEntity<?> atualizar(@RequestBody UsuarioUpdateDto usuariodto, @PathVariable Long id) throws Exception {
 		return usuarioService.atualizar(id, usuariodto);
 	}
 }

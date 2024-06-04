@@ -1,18 +1,17 @@
 package com.example.API2024.BackEnd.service;
 
-import com.example.API2024.BackEnd.adaptadores.EmailServiceImpl;
-import com.example.API2024.BackEnd.interfaces.EmailInterface;
-import com.example.API2024.BackEnd.model.Credencial;
-import com.example.API2024.BackEnd.model.Usuario;
-import com.example.API2024.BackEnd.repository.CredencialRepository;
-import com.example.API2024.BackEnd.repository.UsuarioRepository;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import com.example.API2024.BackEnd.adaptadores.EmailServiceImpl;
+import com.example.API2024.BackEnd.model.Credencial;
+import com.example.API2024.BackEnd.model.Usuario;
+import com.example.API2024.BackEnd.repository.CredencialRepository;
 
 @Service
 public class CredencialService {
@@ -98,5 +97,9 @@ public class CredencialService {
 	public boolean verificarCodigo(String email, String codigo) {
 		String codigoArmazenado = codigoVerificacaoMap.get(email);
 		return codigoArmazenado != null && codigoArmazenado.equals(codigo);
+	}
+	
+	public boolean verificarCpf(String cpf) {
+		return credencialRepository.existsByCpf(cpf);
 	}
 }
