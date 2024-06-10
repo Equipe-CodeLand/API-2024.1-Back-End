@@ -47,12 +47,18 @@ public class UsuarioService {
 		return usuariosFiltrados;
 	}
 	
-	public Usuario atualizar(Long id,UsuarioUpdateDto usuarioUpdateDto) throws Exception {
-		Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado"));		
+	public ResponseEntity<?> atualizar(Long id,UsuarioUpdateDto usuarioUpdateDto) throws Exception {
+		Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado"));
+		if(credencialService.verificarCpf(usuarioUpdateDto.getCpf()) && (usuarioUpdateDto.getCpf().compareTo(usuario.getCredencial().getCpf()) != 0)) {
+			return ResponseEntity.badRequest().body("CPF já cadastrado.");
+		}
+		if(usuarioRepository.existsByEmail(usuarioUpdateDto.getEmail()) && usuarioUpdateDto.getEmail().compareTo(usuario.getEmail()) != 0) {
+			return ResponseEntity.badRequest().body("Email já cadastrado.");
+		}
 		Cargo cargo = cargoService.buscarCargoPorId(usuarioUpdateDto.getCargo());
 		Usuario usuarioAtualizado = usuario.update(usuarioUpdateDto, cargo);
 		usuario.setEmail(usuarioUpdateDto.getEmail());
-		return usuarioRepository.save(usuarioAtualizado);
+		return ResponseEntity.ok(usuarioRepository.save(usuarioAtualizado));
 	}
 	
 	public void cadastrarUsuario(UsuarioDto usuarioDto) throws Exception {
