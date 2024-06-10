@@ -8,27 +8,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Manutencao;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.repository.ManutencaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ManutencaoService {
-
-    @Autowired
-    private ManutencaoRepository manutencaoRepository;
-
-    @Autowired
-    private AtivosRepository ativosRepository;
-
+	
+	@Autowired
+	private ManutencaoRepository manutencaoRepository;
+	
+	@Autowired
+	private AtivosRepository ativosRepository;
+	
 	@Autowired
 	private AtivosRepository repositorio;
-
+	
 	public Manutencao updateManutencao(ManutencaoUpdateDto manutencaoDto, Long id){
 		try {
 			Manutencao manutencao = manutencaoRepository.findById(id).orElseThrow(() -> new Exception("Manutenção não encontrada"));
@@ -40,22 +39,22 @@ public class ManutencaoService {
 			return null;
 		}
 	}
-
-    public List<Manutencao> findAll() {
-        return manutencaoRepository.findAll();
-    }
-
-    public Manutencao findById(Long id) {
-        return manutencaoRepository.findById(id).get();
-    }
-
-    public Manutencao cadastrarManutencao(Manutencao manutencao, Long id) {
-            Ativos ativos = ativosRepository.findById(id)
-               .orElseThrow(() -> new RuntimeException("Ativo não encontrado"));
-		    ativos.setUsuario(null);
-            manutencao.setAtivos(ativos);
-            return manutencaoRepository.save(manutencao);
-    }
+	
+	public List<Manutencao> findAll() {
+		return manutencaoRepository.findAll();
+	}
+	
+	public Manutencao findById(Long id) {
+		return manutencaoRepository.findById(id).get();
+	}
+	
+	public Manutencao cadastrarManutencao(Manutencao manutencao, Long id) {
+		Ativos ativos = ativosRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Ativo não encontrado"));
+		ativos.setUsuario(null);
+		manutencao.setAtivos(ativos);
+		return manutencaoRepository.save(manutencao);
+	}
 	
 	public Manutencao filtrarPorId(Long id) throws Exception {
 		return manutencaoRepository.findById(id).orElseThrow(() -> new Exception("Manutenção não encontrada"));
