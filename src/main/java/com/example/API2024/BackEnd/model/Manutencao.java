@@ -1,8 +1,6 @@
 package com.example.API2024.BackEnd.model;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -52,6 +50,7 @@ public class Manutencao {
 	public Manutencao update(ManutencaoUpdateDto manutencao, Ativos ativos) {
 		this.setLocalizacao(manutencao.getLocalizacao());
 		this.setResponsavel(manutencao.getResponsavel());
+		this.setDescricao(manutencao.getDescricao());
 		this.setData_inicio(LocalDate.parse(manutencao.getData_inicio()));
 		this.setData_final(LocalDate.parse(manutencao.getData_final()));
 	    this.setAtivos(ativos);

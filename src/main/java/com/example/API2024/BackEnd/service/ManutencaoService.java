@@ -5,7 +5,6 @@ import java.net.URLDecoder;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
@@ -31,9 +30,8 @@ public class ManutencaoService {
 	public Manutencao updateManutencao(ManutencaoUpdateDto manutencaoDto, Long id){
 		try {
 			Manutencao manutencao = manutencaoRepository.findById(id).orElseThrow(() -> new Exception("Manutenção não encontrada"));
-			Ativos ativos = repositorio.findById(manutencaoDto.getAtivos_id()).orElseThrow(() -> new Exception("Ativo não encontrado"));
-			ativos.getUsuario().setId(null);
-			return manutencaoRepository.save(manutencao.update(manutencaoDto, ativos));
+			Ativos ativo = repositorio.findById(manutencaoDto.getAtivos_id()).orElseThrow(() -> new Exception("Ativo não encontrado"));
+			return manutencaoRepository.save(manutencao.update(manutencaoDto, ativo));
 		} catch (Exception e) {
 			System.out.println("Erro ao atualizar a manutenção: " + e.getMessage());
 			return null;
