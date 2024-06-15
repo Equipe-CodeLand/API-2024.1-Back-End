@@ -9,6 +9,8 @@ public class ManutencaoUpdateDto {
 	private String localizacao;
 
 	private String responsavel;
+	
+	private String descricao;
 
 	private String data_inicio;
 
