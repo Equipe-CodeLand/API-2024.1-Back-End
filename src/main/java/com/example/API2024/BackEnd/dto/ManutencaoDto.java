@@ -18,6 +18,8 @@ public class ManutencaoDto {
     private String localizacao;
 
     private String responsavel;
+    
+    private String descricao;
 
     private Long ativos_id;
 
@@ -28,6 +30,7 @@ public class ManutencaoDto {
         manutencao.setData_final(LocalDate.parse(data_final, formatter));
         manutencao.setLocalizacao(localizacao);
         manutencao.setResponsavel(responsavel);
+        manutencao.setDescricao(descricao);
 
         return manutencao;
     }

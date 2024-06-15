@@ -2,9 +2,8 @@ INSERT INTO status (nome_status) VALUES ("Disponível");
 INSERT INTO Status (nome_status) VALUES ("Em manutenção");
 INSERT INTO status (nome_status) VALUES ("Ocupado");
 
-INSERT INTO setor (nome_setor) VALUES ("TI");
-INSERT INTO setor (nome_setor) VALUES ("Financeiro");
-INSERT INTO setor (nome_setor) VALUES ("Logística");
+INSERT INTO cargo (nome) VALUES ("Administrador");
+INSERT INTO cargo (nome) VALUES ("Funcionário");
 
 INSERT INTO ativos (nome, descricao, preco_aquisicao, marca, modelo, nome_funcionario, setor_id, status_id) VALUES ("Máquina de impressão 3D Industrial",
 "Descrição da Máquina de impressão 3D Industrial", 5000, "Marca sei lá", "Modelo sei lá", null, 1, 1);

@@ -1,14 +1,15 @@
 package com.example.API2024.BackEnd.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.API2024.BackEnd.dto.ManutencaoUpdateDto;
 import com.example.API2024.BackEnd.dto.UsuarioUpdateDto;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
 @Data
 @Entity
@@ -20,7 +21,7 @@ public class Usuario {
 	@Column
 	private String nome;
 	
-	@Column
+	@Column(unique = true)
 	private String email;
 
 	@ManyToOne
