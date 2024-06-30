@@ -82,8 +82,12 @@ public class AtivosService {
 		List<Ativos> ativosFiltrados = new ArrayList<Ativos>();
 		List<Ativos> ativos = ativosRepository.findAll();
 		for(Ativos ativo : ativos) {
-			if(ativo.getDataAquisicao().isAfter(dataInicio) && ativo.getDataAquisicao().isBefore(dataFinal)) {
-				ativosFiltrados.add(ativo);
+			if(ativo.getDataAquisicao().isBefore(dataFinal) || ativo.getDataAquisicao().isEqual(dataFinal)) {
+				if(ativo.getDataExpiracao() == null) {					
+					ativosFiltrados.add(ativo);
+				} else if (ativo.getDataExpiracao().isAfter(dataInicio)){
+					ativosFiltrados.add(ativo);
+				}
 			}
 		}
 		return ativosFiltrados;
@@ -94,7 +98,7 @@ public class AtivosService {
 		for(Ativos ativo : ativos) {
 			if(ativo.getDataExpiracao() != null) {				
 				long dias = ChronoUnit.DAYS.between(data, ativo.getDataExpiracao());
-				if(dias <= intervalo) {
+				if(dias <= intervalo && dias > 0) {
 					ativosFiltrados.add(ativo);
 				}
 			}
