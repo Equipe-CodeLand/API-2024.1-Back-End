@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.API2024.BackEnd.dto.DashboardDto;
-import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.service.ManutencaoService;
 
@@ -27,14 +26,11 @@ public class DashboardController {
 	@Autowired
 	private ManutencaoService manutencaoService;
 	
-	@Autowired
-	private AtivosRepository ativosRepository;
-	
 	@GetMapping("/")
 	public DashboardDto buscarRelatorio() {
 		DashboardDto dashboard = new DashboardDto();
         LocalDate dataHoje = LocalDate.now();
-		dashboard.setAtivos(ativosRepository.findAll());
+		dashboard.setAtivos(ativosService.buscarAtivosNaoExpirados());
 		dashboard.setAtivosPorStatus(ativosService.buscarQntAtivosPorStatus(dashboard.getAtivos()));
 		dashboard.setValorPorStatus(ativosService.buscarValorTotalPorStatus(dashboard.getAtivos()));
 		dashboard.setAtivosExpirando(ativosService.filtrarPorExpiracaoProxima(dashboard.getAtivos(), dataHoje, 60));

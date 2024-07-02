@@ -1,18 +1,23 @@
 package com.example.API2024.BackEnd.service;
 
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.type.descriptor.java.LocalDateJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.Historico;
+import com.example.API2024.BackEnd.model.Status;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.repository.HistoricoRepository;
+import com.example.API2024.BackEnd.repository.StatusRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -22,6 +27,9 @@ public class AtivosService {
 
 	@Autowired
     private AtivosRepository ativosRepository;
+	
+	@Autowired
+	private StatusRepository statusRepository;
 
 	@Autowired
 	private HistoricoRepository historicoRepository;
@@ -36,7 +44,10 @@ public class AtivosService {
 		ativo.setPreco_aquisicao(ativos.getPreco_aquisicao());
 		ativo.setModelo(ativos.getModelo());
 		ativo.setMarca(ativos.getMarca());
-		ativo.setStatus(ativos.getStatus());
+		Status status = statusRepository.findById(ativos.getStatus().getId()).get();
+		if (status != null) {			
+			ativo.setStatus(status);
+		}
 		ativo.setCodigo_nota_fiscal(ativos.getCodigo_nota_fiscal());
 		ativo.setDataAquisicao(LocalDate.parse(ativos.getDataAquisicao()));
 
@@ -164,5 +175,19 @@ public class AtivosService {
 		valores.add(valorEmManutencao);
 		valores.add(valorOcupado);
 		return valores;
+	}
+	
+	public List<Ativos> buscarAtivosNaoExpirados(){
+		List<Ativos> ativosNExpirados = new ArrayList<>();
+		List<Ativos> ativos = ativosRepository.findAll();
+		ChronoLocalDate hoje = LocalDate.now();
+		for(Ativos ativo: ativos) {
+			if (ativo.getDataExpiracao() == null) {
+				ativosNExpirados.add(ativo);
+			} else if (ativo.getDataExpiracao().isAfter(hoje)) {
+				ativosNExpirados.add(ativo);
+			}
+		}
+		return ativosNExpirados;
 	}
 }

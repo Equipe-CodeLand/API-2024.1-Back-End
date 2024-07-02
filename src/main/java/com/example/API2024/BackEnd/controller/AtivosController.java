@@ -3,26 +3,16 @@ package com.example.API2024.BackEnd.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import com.example.API2024.BackEnd.model.Historico;
 import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.dto.AtivosDto;
 import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.model.Usuario;
-import com.example.API2024.BackEnd.repository.HistoricoRepository;
 import com.example.API2024.BackEnd.repository.UsuarioRepository;
 import com.example.API2024.BackEnd.selecionadores.UsuarioSelecionadorCPF;
-import com.example.API2024.BackEnd.service.AtivosService;
 import com.example.API2024.BackEnd.service.HistoricoService;
-import com.example.API2024.BackEnd.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,14 +26,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.API2024.BackEnd.dto.AtivosDto;
-import com.example.API2024.BackEnd.model.Ativos;
 import com.example.API2024.BackEnd.model.NotaFiscal;
-import com.example.API2024.BackEnd.repository.AtivosRepository;
 import com.example.API2024.BackEnd.repository.NotaFiscalRepository;
-import com.example.API2024.BackEnd.service.AtivosService;
-import com.example.API2024.BackEnd.service.HistoricoService;
-import org.springframework.web.bind.annotation.*;
 
 import com.example.API2024.BackEnd.service.NotaFiscalService;
 
@@ -61,16 +45,10 @@ public class AtivosController {
     public AtivosService ativoService;
 
     @Autowired
-   	private HistoricoRepository historicoRepository;
-
-    @Autowired
     private HistoricoService historicoService;
     
     @Autowired
     public AtivosService ativosService;
-    
-    @Autowired
-    private UsuarioService usuarioService;
     
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -142,7 +120,7 @@ public class AtivosController {
                 return ResponseEntity.notFound().build();
             }
         } catch(Exception e) {
-            System.out.println("Erro ao atualizar a manutenção: " + e.getMessage());
+            System.out.println("Erro ao atualizar ativo: " + e.getMessage());
             return null;
         }
     }
